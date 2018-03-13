@@ -16,7 +16,7 @@ namespace Dev2Tools.API.Controllers
         {
             Employer employer = new Employer()
             {
-                EsdNum = id,
+                EsdNum = "None",
                 Name = "No Employer Found"
             };
 
@@ -29,6 +29,7 @@ namespace Dev2Tools.API.Controllers
 
                 if (emp == null) return employer;
 
+                employer.EmpId = emp.EMP_ID;
                 employer.Name = emp.EMP_LEGAL_ENTY_NAME;
 
                 foreach (var liab in emp.TBL_EMPR_LIAB_PERIOD_ELP)

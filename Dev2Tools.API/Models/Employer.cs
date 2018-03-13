@@ -8,7 +8,8 @@ namespace Dev2Tools.API.Models
     {
         [Required(ErrorMessage = "Name is required.")]
         public string Name { get; set; }
-        public string EsdNum { get; set; } = "000006218003";
+        public string EsdNum { get; set; }
+        public long EmpId { get; set; } 
         public List<LiabilityPeriod> LiabilityPeriods { get; set; } = new List<LiabilityPeriod>();
         public List<WagePeriod> WagePeriods { get; set; } = new List<WagePeriod>();
     }
