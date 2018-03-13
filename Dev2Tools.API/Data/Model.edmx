@@ -1,0 +1,523 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="NGTSLOB_dev2Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="TBL_EMPR_EMP">
+          <Key>
+            <PropertyRef Name="EMP_ID" />
+          </Key>
+          <Property Name="EMP_ID" Type="bigint" Nullable="false" />
+          <Property Name="EMP_ESD_NBR" Type="nvarchar" MaxLength="12" Nullable="false" />
+          <Property Name="EMP_EIN" Type="nvarchar" MaxLength="9" />
+          <Property Name="EMP_UBI" Type="nvarchar" MaxLength="9" />
+          <Property Name="EMP_DSHS_CASE_NBR" Type="nvarchar" MaxLength="10" />
+          <Property Name="EMP_LEGAL_ENTY_NAME" Type="nvarchar" MaxLength="60" Nullable="false" />
+          <Property Name="NAI_ID" Type="bigint" />
+          <Property Name="SIC_ID" Type="bigint" />
+          <Property Name="REF_ID_EMPR_STATUS" Type="bigint" Nullable="false" />
+          <Property Name="REF_ID_LIAB_TYPE" Type="bigint" />
+          <Property Name="REF_ID_CORPTN_TYPE" Type="bigint" />
+          <Property Name="REF_ID_PAYMT_METHD" Type="bigint" />
+          <Property Name="REF_ID_EMPR_CLASS" Type="bigint" />
+          <Property Name="REF_ID_LIAB_DATE_CHNG_REASON" Type="bigint" />
+          <Property Name="EMP_OUT_OF_BALNC_FLAG" Type="nchar" MaxLength="1" Nullable="false" />
+          <Property Name="EMP_501C3_RECVD_VERIFIED_FLAG" Type="nchar" MaxLength="1" />
+          <Property Name="EMP_IVRS_PIN" Type="nchar" MaxLength="4" />
+          <Property Name="REF_ID_MULTI_CD" Type="bigint" />
+          <Property Name="REF_ID_EMPR_ACCT_TYPE" Type="bigint" Nullable="false" />
+          <Property Name="DTO_ID" Type="bigint" />
+          <Property Name="EMP_INCLUDE_TRIBAL_PACKET" Type="nchar" MaxLength="1" Nullable="false" />
+          <Property Name="EMP_SUPPRESS_EMPR_PACKET" Type="nchar" MaxLength="1" Nullable="false" />
+          <Property Name="REF_ID_DELIVERY_METHD" Type="bigint" Nullable="false" />
+          <Property Name="EMP_BUSNS_ACTVY" Type="nvarchar" MaxLength="150" />
+          <Property Name="EMP_RGSTRED_DATE" Type="date" />
+          <Property Name="REF_ID_FORCE_OPEN_REASON" Type="bigint" />
+          <Property Name="EMP_BANKRUPTCY_FLAG" Type="nchar" MaxLength="1" Nullable="false" />
+          <Property Name="EMP_ADT_FLAG" Type="nchar" MaxLength="1" Nullable="false" />
+          <Property Name="EMP_APPEAL_FLAG" Type="nchar" MaxLength="1" Nullable="false" />
+          <Property Name="NAI_ID_PREVIOUS" Type="bigint" />
+          <Property Name="EMP_HISTORICAL_DOC_CONVERTED" Type="nchar" MaxLength="1" Nullable="false" />
+          <Property Name="EMP_COLCTN_FLAG" Type="nchar" MaxLength="1" Nullable="false" />
+          <Property Name="EMP_DETRMN_DATE" Type="datetime2" Precision="7" />
+          <Property Name="EMP_INVSTGN_FLAG" Type="nchar" MaxLength="1" Nullable="false" />
+          <Property Name="EMP_EMPR_CLASS_EFCTV_DATE" Type="date" />
+          <Property Name="USR_LAST_MODFD_BY" Type="bigint" Nullable="false" />
+          <Property Name="EMP_LAST_MODFD_DATE" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="BTA_ID" Type="bigint" Nullable="false" />
+          <Property Name="EMP_COPES_SENT_FLAG" Type="nchar" MaxLength="1" />
+          <Property Name="EMP_STATE_AGENCY_CD" Type="varchar" MaxLength="6" />
+        </EntityType>
+        <EntityType Name="TBL_EMPR_LIAB_PERIOD_ELP">
+          <Key>
+            <PropertyRef Name="ELP_ID" />
+          </Key>
+          <Property Name="ELP_ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ELP_LIAB_START_DATE" Type="date" Nullable="false" />
+          <Property Name="ELP_LIAB_END_DATE" Type="date" />
+          <Property Name="REF_ID_REINSTATE_CHNG_REASON" Type="bigint" />
+          <Property Name="EMP_ID" Type="bigint" Nullable="false" />
+          <Property Name="REF_ID_LIAB_INACTV_REASON" Type="bigint" />
+          <Property Name="ELP_TITLE" Type="nvarchar" MaxLength="40" />
+          <Property Name="ELP_NAME" Type="nvarchar" MaxLength="40" />
+          <Property Name="ELP_PHONE" Type="nvarchar" MaxLength="20" />
+          <Property Name="ELP_PHONE_EXTENSION" Type="nvarchar" MaxLength="20" />
+          <Property Name="REF_ID_LIAB_TYPE" Type="bigint" />
+          <Property Name="USR_LAST_MODFD_BY" Type="bigint" Nullable="false" />
+          <Property Name="ELP_LAST_MODFD_DATE" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="BTA_ID" Type="bigint" Nullable="false" />
+          <Property Name="ELP_INACTV_DTS_DATE" Type="datetime2" Precision="7" />
+          <Property Name="ELP_ACTIVATION_DATE" Type="date" />
+          <Property Name="REF_ID_LIAB_CHNG_REASON" Type="bigint" />
+        </EntityType>
+        <EntityType Name="TBL_TAX_RATE_TRA">
+          <Key>
+            <PropertyRef Name="TRA_ID" />
+          </Key>
+          <Property Name="TRA_ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TRA_GRADTD_SOCIAL_COST_FACTR" Type="decimal" Precision="6" Scale="2" />
+          <Property Name="TRA_SOLVENCY_SURCHRG" Type="decimal" Precision="6" Scale="2" />
+          <Property Name="TRA_TOT_TAX_RATE" Type="decimal" Precision="6" Scale="2" />
+          <Property Name="TRA_UI_LIMIT_REDUCTION" Type="decimal" Precision="6" Scale="2" />
+          <Property Name="TRA_UI_TAX_RATE" Type="decimal" Precision="6" Scale="2" />
+          <Property Name="TRA_DELQNT_TAX_RATE" Type="decimal" Precision="6" Scale="2" />
+          <Property Name="TRC_ID" Type="bigint" />
+          <Property Name="TRA_EMERGENCY_EXCESS_TAX" Type="decimal" Precision="19" Scale="2" />
+          <Property Name="TRA_RESERVE_ACCT_BALNC" Type="decimal" Precision="19" Scale="2" />
+          <Property Name="TRA_BNFT_RATIO" Type="numeric" Precision="13" Scale="6" />
+          <Property Name="TRA_RESERVE_RATIO" Type="decimal" Precision="13" Scale="4" />
+          <Property Name="TRA_CNTRBNS_PD" Type="decimal" Precision="19" Scale="2" />
+          <Property Name="TRA_MIN_MAX_CPP" Type="decimal" Precision="19" Scale="2" />
+          <Property Name="TRA_PREVIOUS_TAC" Type="decimal" Precision="19" Scale="2" />
+          <Property Name="TTP_ID" Type="bigint" Nullable="false" />
+          <Property Name="REF_ID_ASGNMN_METHD" Type="bigint" />
+          <Property Name="REF_ID_SUB_ASGNMN_METHD" Type="bigint" />
+          <Property Name="REF_ID_EMPR_QUALIFICATION" Type="bigint" Nullable="false" />
+          <Property Name="USR_LAST_MODFD_BY" Type="bigint" Nullable="false" />
+          <Property Name="TRA_LAST_MODFD_DATE" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="BTA_ID" Type="bigint" Nullable="false" />
+          <Property Name="TRA_PROPOSED_TAX_RATE" Type="decimal" Precision="5" Scale="2" />
+        </EntityType>
+        <EntityType Name="TBL_WAGE_RPT_WRE">
+          <Key>
+            <PropertyRef Name="WRE_ID" />
+          </Key>
+          <Property Name="WRE_ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="REF_ID_WAGE_RPT_METHD" Type="bigint" Nullable="false" />
+          <Property Name="WRE_QTR" Type="int" Nullable="false" />
+          <Property Name="WRE_YR" Type="int" Nullable="false" />
+          <Property Name="WRE_GROSS_WAGES" Type="decimal" Precision="19" Scale="2" Nullable="false" />
+          <Property Name="WRE_CHRG_INCORRECT_PENLTY_FLAG" Type="nchar" MaxLength="1" Nullable="false" />
+          <Property Name="REF_ID_WAGE_RPT_STATUS" Type="bigint" Nullable="false" />
+          <Property Name="WRE_OUT_OF_STATE_WAGES" Type="decimal" Precision="19" Scale="2" Nullable="false" />
+          <Property Name="WRE_ERROR_COUNT" Type="int" Nullable="false" />
+          <Property Name="WRE_RECVD_DATE" Type="date" Nullable="false" />
+          <Property Name="EMP_ID" Type="bigint" />
+          <Property Name="WRE_OUT_OF_STATE_EMPR_NAME" Type="nvarchar" MaxLength="24" />
+          <Property Name="REF_ID_RPT_TYPE" Type="bigint" Nullable="false" />
+          <Property Name="WRE_WAGE_IMBALNC_FLAG" Type="nchar" MaxLength="1" Nullable="false" />
+          <Property Name="WRE_MISSING_CORP_OFFICER_FLAG" Type="nchar" MaxLength="1" Nullable="false" />
+          <Property Name="USR_LAST_MODFD_BY" Type="bigint" Nullable="false" />
+          <Property Name="WRE_LAST_MODFD_DATE" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="BTA_ID" Type="bigint" Nullable="false" />
+          <Property Name="WRE_RPTD_ORDER" Type="int" Nullable="false" />
+          <Property Name="WRE_DUPLICATE_FLAG" Type="char" MaxLength="1" Nullable="false" />
+          <Property Name="WRE_PROCESS_DATE" Type="date" />
+        </EntityType>
+        <Association Name="FK_ELP1_EMP_ID">
+          <End Role="TBL_EMPR_EMP" Type="Self.TBL_EMPR_EMP" Multiplicity="1" />
+          <End Role="TBL_EMPR_LIAB_PERIOD_ELP" Type="Self.TBL_EMPR_LIAB_PERIOD_ELP" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_EMPR_EMP">
+              <PropertyRef Name="EMP_ID" />
+            </Principal>
+            <Dependent Role="TBL_EMPR_LIAB_PERIOD_ELP">
+              <PropertyRef Name="EMP_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EMP18_EMP_ID">
+          <End Role="TBL_EMPR_EMP" Type="Self.TBL_EMPR_EMP" Multiplicity="1" />
+          <End Role="TBL_EMPR_EMP1" Type="Self.TBL_EMPR_EMP" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_EMPR_EMP">
+              <PropertyRef Name="EMP_ID" />
+            </Principal>
+            <Dependent Role="TBL_EMPR_EMP1">
+              <PropertyRef Name="EMP_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_WRE3_EMP_ID">
+          <End Role="TBL_EMPR_EMP" Type="Self.TBL_EMPR_EMP" Multiplicity="0..1" />
+          <End Role="TBL_WAGE_RPT_WRE" Type="Self.TBL_WAGE_RPT_WRE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_EMPR_EMP">
+              <PropertyRef Name="EMP_ID" />
+            </Principal>
+            <Dependent Role="TBL_WAGE_RPT_WRE">
+              <PropertyRef Name="EMP_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="NGTSLOB_dev2ModelStoreContainer">
+          <EntitySet Name="TBL_EMPR_EMP" EntityType="Self.TBL_EMPR_EMP" Schema="NGT540" store:Type="Tables" />
+          <EntitySet Name="TBL_EMPR_LIAB_PERIOD_ELP" EntityType="Self.TBL_EMPR_LIAB_PERIOD_ELP" Schema="NGT540" store:Type="Tables" />
+          <EntitySet Name="TBL_TAX_RATE_TRA" EntityType="Self.TBL_TAX_RATE_TRA" Schema="NGT540" store:Type="Tables" />
+          <EntitySet Name="TBL_WAGE_RPT_WRE" EntityType="Self.TBL_WAGE_RPT_WRE" Schema="NGT540" store:Type="Tables" />
+          <AssociationSet Name="FK_ELP1_EMP_ID" Association="Self.FK_ELP1_EMP_ID">
+            <End Role="TBL_EMPR_EMP" EntitySet="TBL_EMPR_EMP" />
+            <End Role="TBL_EMPR_LIAB_PERIOD_ELP" EntitySet="TBL_EMPR_LIAB_PERIOD_ELP" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EMP18_EMP_ID" Association="Self.FK_EMP18_EMP_ID">
+            <End Role="TBL_EMPR_EMP" EntitySet="TBL_EMPR_EMP" />
+            <End Role="TBL_EMPR_EMP1" EntitySet="TBL_EMPR_EMP" />
+          </AssociationSet>
+          <AssociationSet Name="FK_WRE3_EMP_ID" Association="Self.FK_WRE3_EMP_ID">
+            <End Role="TBL_EMPR_EMP" EntitySet="TBL_EMPR_EMP" />
+            <End Role="TBL_WAGE_RPT_WRE" EntitySet="TBL_WAGE_RPT_WRE" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="NGTSLOB_dev2Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="TBL_EMPR_EMP">
+          <Key>
+            <PropertyRef Name="EMP_ID" />
+          </Key>
+          <Property Name="EMP_ID" Type="Int64" Nullable="false" />
+          <Property Name="EMP_ESD_NBR" Type="String" MaxLength="12" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="EMP_EIN" Type="String" MaxLength="9" FixedLength="false" Unicode="true" />
+          <Property Name="EMP_UBI" Type="String" MaxLength="9" FixedLength="false" Unicode="true" />
+          <Property Name="EMP_DSHS_CASE_NBR" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="EMP_LEGAL_ENTY_NAME" Type="String" MaxLength="60" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="NAI_ID" Type="Int64" />
+          <Property Name="SIC_ID" Type="Int64" />
+          <Property Name="REF_ID_EMPR_STATUS" Type="Int64" Nullable="false" />
+          <Property Name="REF_ID_LIAB_TYPE" Type="Int64" />
+          <Property Name="REF_ID_CORPTN_TYPE" Type="Int64" />
+          <Property Name="REF_ID_PAYMT_METHD" Type="Int64" />
+          <Property Name="REF_ID_EMPR_CLASS" Type="Int64" />
+          <Property Name="REF_ID_LIAB_DATE_CHNG_REASON" Type="Int64" />
+          <Property Name="EMP_OUT_OF_BALNC_FLAG" Type="String" MaxLength="1" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="EMP_501C3_RECVD_VERIFIED_FLAG" Type="String" MaxLength="1" FixedLength="true" Unicode="true" />
+          <Property Name="EMP_IVRS_PIN" Type="String" MaxLength="4" FixedLength="true" Unicode="true" />
+          <Property Name="REF_ID_MULTI_CD" Type="Int64" />
+          <Property Name="REF_ID_EMPR_ACCT_TYPE" Type="Int64" Nullable="false" />
+          <Property Name="DTO_ID" Type="Int64" />
+          <Property Name="EMP_INCLUDE_TRIBAL_PACKET" Type="String" MaxLength="1" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="EMP_SUPPRESS_EMPR_PACKET" Type="String" MaxLength="1" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="REF_ID_DELIVERY_METHD" Type="Int64" Nullable="false" />
+          <Property Name="EMP_BUSNS_ACTVY" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="EMP_RGSTRED_DATE" Type="DateTime" Precision="0" />
+          <Property Name="REF_ID_FORCE_OPEN_REASON" Type="Int64" />
+          <Property Name="EMP_BANKRUPTCY_FLAG" Type="String" MaxLength="1" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="EMP_ADT_FLAG" Type="String" MaxLength="1" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="EMP_APPEAL_FLAG" Type="String" MaxLength="1" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="NAI_ID_PREVIOUS" Type="Int64" />
+          <Property Name="EMP_HISTORICAL_DOC_CONVERTED" Type="String" MaxLength="1" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="EMP_COLCTN_FLAG" Type="String" MaxLength="1" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="EMP_DETRMN_DATE" Type="DateTime" Precision="7" />
+          <Property Name="EMP_INVSTGN_FLAG" Type="String" MaxLength="1" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="EMP_EMPR_CLASS_EFCTV_DATE" Type="DateTime" Precision="0" />
+          <Property Name="USR_LAST_MODFD_BY" Type="Int64" Nullable="false" />
+          <Property Name="EMP_LAST_MODFD_DATE" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="BTA_ID" Type="Int64" Nullable="false" />
+          <Property Name="EMP_COPES_SENT_FLAG" Type="String" MaxLength="1" FixedLength="true" Unicode="true" />
+          <Property Name="EMP_STATE_AGENCY_CD" Type="String" MaxLength="6" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="TBL_EMPR_LIAB_PERIOD_ELP" Relationship="Self.FK_ELP1_EMP_ID" FromRole="TBL_EMPR_EMP" ToRole="TBL_EMPR_LIAB_PERIOD_ELP" />
+          <NavigationProperty Name="TBL_EMPR_EMP1" Relationship="Self.FK_EMP18_EMP_ID" FromRole="TBL_EMPR_EMP" ToRole="TBL_EMPR_EMP1" />
+          <NavigationProperty Name="TBL_EMPR_EMP2" Relationship="Self.FK_EMP18_EMP_ID" FromRole="TBL_EMPR_EMP1" ToRole="TBL_EMPR_EMP" />
+          <NavigationProperty Name="TBL_WAGE_RPT_WRE" Relationship="Self.FK_WRE3_EMP_ID" FromRole="TBL_EMPR_EMP" ToRole="TBL_WAGE_RPT_WRE" />
+        </EntityType>
+        <EntityType Name="TBL_EMPR_LIAB_PERIOD_ELP">
+          <Key>
+            <PropertyRef Name="ELP_ID" />
+          </Key>
+          <Property Name="ELP_ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ELP_LIAB_START_DATE" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="ELP_LIAB_END_DATE" Type="DateTime" Precision="0" />
+          <Property Name="REF_ID_REINSTATE_CHNG_REASON" Type="Int64" />
+          <Property Name="EMP_ID" Type="Int64" Nullable="false" />
+          <Property Name="REF_ID_LIAB_INACTV_REASON" Type="Int64" />
+          <Property Name="ELP_TITLE" Type="String" MaxLength="40" FixedLength="false" Unicode="true" />
+          <Property Name="ELP_NAME" Type="String" MaxLength="40" FixedLength="false" Unicode="true" />
+          <Property Name="ELP_PHONE" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="ELP_PHONE_EXTENSION" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="REF_ID_LIAB_TYPE" Type="Int64" />
+          <Property Name="USR_LAST_MODFD_BY" Type="Int64" Nullable="false" />
+          <Property Name="ELP_LAST_MODFD_DATE" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="BTA_ID" Type="Int64" Nullable="false" />
+          <Property Name="ELP_INACTV_DTS_DATE" Type="DateTime" Precision="7" />
+          <Property Name="ELP_ACTIVATION_DATE" Type="DateTime" Precision="0" />
+          <Property Name="REF_ID_LIAB_CHNG_REASON" Type="Int64" />
+          <NavigationProperty Name="TBL_EMPR_EMP" Relationship="Self.FK_ELP1_EMP_ID" FromRole="TBL_EMPR_LIAB_PERIOD_ELP" ToRole="TBL_EMPR_EMP" />
+        </EntityType>
+        <EntityType Name="TBL_TAX_RATE_TRA">
+          <Key>
+            <PropertyRef Name="TRA_ID" />
+          </Key>
+          <Property Name="TRA_ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TRA_GRADTD_SOCIAL_COST_FACTR" Type="Decimal" Precision="6" Scale="2" />
+          <Property Name="TRA_SOLVENCY_SURCHRG" Type="Decimal" Precision="6" Scale="2" />
+          <Property Name="TRA_TOT_TAX_RATE" Type="Decimal" Precision="6" Scale="2" />
+          <Property Name="TRA_UI_LIMIT_REDUCTION" Type="Decimal" Precision="6" Scale="2" />
+          <Property Name="TRA_UI_TAX_RATE" Type="Decimal" Precision="6" Scale="2" />
+          <Property Name="TRA_DELQNT_TAX_RATE" Type="Decimal" Precision="6" Scale="2" />
+          <Property Name="TRC_ID" Type="Int64" />
+          <Property Name="TRA_EMERGENCY_EXCESS_TAX" Type="Decimal" Precision="19" Scale="2" />
+          <Property Name="TRA_RESERVE_ACCT_BALNC" Type="Decimal" Precision="19" Scale="2" />
+          <Property Name="TRA_BNFT_RATIO" Type="Decimal" Precision="13" Scale="6" />
+          <Property Name="TRA_RESERVE_RATIO" Type="Decimal" Precision="13" Scale="4" />
+          <Property Name="TRA_CNTRBNS_PD" Type="Decimal" Precision="19" Scale="2" />
+          <Property Name="TRA_MIN_MAX_CPP" Type="Decimal" Precision="19" Scale="2" />
+          <Property Name="TRA_PREVIOUS_TAC" Type="Decimal" Precision="19" Scale="2" />
+          <Property Name="TTP_ID" Type="Int64" Nullable="false" />
+          <Property Name="REF_ID_ASGNMN_METHD" Type="Int64" />
+          <Property Name="REF_ID_SUB_ASGNMN_METHD" Type="Int64" />
+          <Property Name="REF_ID_EMPR_QUALIFICATION" Type="Int64" Nullable="false" />
+          <Property Name="USR_LAST_MODFD_BY" Type="Int64" Nullable="false" />
+          <Property Name="TRA_LAST_MODFD_DATE" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="BTA_ID" Type="Int64" Nullable="false" />
+          <Property Name="TRA_PROPOSED_TAX_RATE" Type="Decimal" Precision="5" Scale="2" />
+        </EntityType>
+        <EntityType Name="TBL_WAGE_RPT_WRE">
+          <Key>
+            <PropertyRef Name="WRE_ID" />
+          </Key>
+          <Property Name="WRE_ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="REF_ID_WAGE_RPT_METHD" Type="Int64" Nullable="false" />
+          <Property Name="WRE_QTR" Type="Int32" Nullable="false" />
+          <Property Name="WRE_YR" Type="Int32" Nullable="false" />
+          <Property Name="WRE_GROSS_WAGES" Type="Decimal" Precision="19" Scale="2" Nullable="false" />
+          <Property Name="WRE_CHRG_INCORRECT_PENLTY_FLAG" Type="String" MaxLength="1" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="REF_ID_WAGE_RPT_STATUS" Type="Int64" Nullable="false" />
+          <Property Name="WRE_OUT_OF_STATE_WAGES" Type="Decimal" Precision="19" Scale="2" Nullable="false" />
+          <Property Name="WRE_ERROR_COUNT" Type="Int32" Nullable="false" />
+          <Property Name="WRE_RECVD_DATE" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="EMP_ID" Type="Int64" />
+          <Property Name="WRE_OUT_OF_STATE_EMPR_NAME" Type="String" MaxLength="24" FixedLength="false" Unicode="true" />
+          <Property Name="REF_ID_RPT_TYPE" Type="Int64" Nullable="false" />
+          <Property Name="WRE_WAGE_IMBALNC_FLAG" Type="String" MaxLength="1" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="WRE_MISSING_CORP_OFFICER_FLAG" Type="String" MaxLength="1" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="USR_LAST_MODFD_BY" Type="Int64" Nullable="false" />
+          <Property Name="WRE_LAST_MODFD_DATE" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="BTA_ID" Type="Int64" Nullable="false" />
+          <Property Name="WRE_RPTD_ORDER" Type="Int32" Nullable="false" />
+          <Property Name="WRE_DUPLICATE_FLAG" Type="String" MaxLength="1" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="WRE_PROCESS_DATE" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="TBL_EMPR_EMP" Relationship="Self.FK_WRE3_EMP_ID" FromRole="TBL_WAGE_RPT_WRE" ToRole="TBL_EMPR_EMP" />
+        </EntityType>
+        <Association Name="FK_ELP1_EMP_ID">
+          <End Role="TBL_EMPR_EMP" Type="Self.TBL_EMPR_EMP" Multiplicity="1" />
+          <End Role="TBL_EMPR_LIAB_PERIOD_ELP" Type="Self.TBL_EMPR_LIAB_PERIOD_ELP" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_EMPR_EMP">
+              <PropertyRef Name="EMP_ID" />
+            </Principal>
+            <Dependent Role="TBL_EMPR_LIAB_PERIOD_ELP">
+              <PropertyRef Name="EMP_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EMP18_EMP_ID">
+          <End Role="TBL_EMPR_EMP" Type="Self.TBL_EMPR_EMP" Multiplicity="1" />
+          <End Role="TBL_EMPR_EMP1" Type="Self.TBL_EMPR_EMP" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_EMPR_EMP">
+              <PropertyRef Name="EMP_ID" />
+            </Principal>
+            <Dependent Role="TBL_EMPR_EMP1">
+              <PropertyRef Name="EMP_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_WRE3_EMP_ID">
+          <End Role="TBL_EMPR_EMP" Type="Self.TBL_EMPR_EMP" Multiplicity="0..1" />
+          <End Role="TBL_WAGE_RPT_WRE" Type="Self.TBL_WAGE_RPT_WRE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_EMPR_EMP">
+              <PropertyRef Name="EMP_ID" />
+            </Principal>
+            <Dependent Role="TBL_WAGE_RPT_WRE">
+              <PropertyRef Name="EMP_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="NGTSLOB_dev2Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="TBL_EMPR_EMP" EntityType="Self.TBL_EMPR_EMP" />
+          <EntitySet Name="TBL_EMPR_LIAB_PERIOD_ELP" EntityType="Self.TBL_EMPR_LIAB_PERIOD_ELP" />
+          <EntitySet Name="TBL_TAX_RATE_TRA" EntityType="Self.TBL_TAX_RATE_TRA" />
+          <EntitySet Name="TBL_WAGE_RPT_WRE" EntityType="Self.TBL_WAGE_RPT_WRE" />
+          <AssociationSet Name="FK_ELP1_EMP_ID" Association="Self.FK_ELP1_EMP_ID">
+            <End Role="TBL_EMPR_EMP" EntitySet="TBL_EMPR_EMP" />
+            <End Role="TBL_EMPR_LIAB_PERIOD_ELP" EntitySet="TBL_EMPR_LIAB_PERIOD_ELP" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EMP18_EMP_ID" Association="Self.FK_EMP18_EMP_ID">
+            <End Role="TBL_EMPR_EMP" EntitySet="TBL_EMPR_EMP" />
+            <End Role="TBL_EMPR_EMP1" EntitySet="TBL_EMPR_EMP" />
+          </AssociationSet>
+          <AssociationSet Name="FK_WRE3_EMP_ID" Association="Self.FK_WRE3_EMP_ID">
+            <End Role="TBL_EMPR_EMP" EntitySet="TBL_EMPR_EMP" />
+            <End Role="TBL_WAGE_RPT_WRE" EntitySet="TBL_WAGE_RPT_WRE" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="NGTSLOB_dev2ModelStoreContainer" CdmEntityContainer="NGTSLOB_dev2Entities">
+          <EntitySetMapping Name="TBL_EMPR_EMP">
+            <EntityTypeMapping TypeName="NGTSLOB_dev2Model.TBL_EMPR_EMP">
+              <MappingFragment StoreEntitySet="TBL_EMPR_EMP">
+                <ScalarProperty Name="EMP_ID" ColumnName="EMP_ID" />
+                <ScalarProperty Name="EMP_ESD_NBR" ColumnName="EMP_ESD_NBR" />
+                <ScalarProperty Name="EMP_EIN" ColumnName="EMP_EIN" />
+                <ScalarProperty Name="EMP_UBI" ColumnName="EMP_UBI" />
+                <ScalarProperty Name="EMP_DSHS_CASE_NBR" ColumnName="EMP_DSHS_CASE_NBR" />
+                <ScalarProperty Name="EMP_LEGAL_ENTY_NAME" ColumnName="EMP_LEGAL_ENTY_NAME" />
+                <ScalarProperty Name="NAI_ID" ColumnName="NAI_ID" />
+                <ScalarProperty Name="SIC_ID" ColumnName="SIC_ID" />
+                <ScalarProperty Name="REF_ID_EMPR_STATUS" ColumnName="REF_ID_EMPR_STATUS" />
+                <ScalarProperty Name="REF_ID_LIAB_TYPE" ColumnName="REF_ID_LIAB_TYPE" />
+                <ScalarProperty Name="REF_ID_CORPTN_TYPE" ColumnName="REF_ID_CORPTN_TYPE" />
+                <ScalarProperty Name="REF_ID_PAYMT_METHD" ColumnName="REF_ID_PAYMT_METHD" />
+                <ScalarProperty Name="REF_ID_EMPR_CLASS" ColumnName="REF_ID_EMPR_CLASS" />
+                <ScalarProperty Name="REF_ID_LIAB_DATE_CHNG_REASON" ColumnName="REF_ID_LIAB_DATE_CHNG_REASON" />
+                <ScalarProperty Name="EMP_OUT_OF_BALNC_FLAG" ColumnName="EMP_OUT_OF_BALNC_FLAG" />
+                <ScalarProperty Name="EMP_501C3_RECVD_VERIFIED_FLAG" ColumnName="EMP_501C3_RECVD_VERIFIED_FLAG" />
+                <ScalarProperty Name="EMP_IVRS_PIN" ColumnName="EMP_IVRS_PIN" />
+                <ScalarProperty Name="REF_ID_MULTI_CD" ColumnName="REF_ID_MULTI_CD" />
+                <ScalarProperty Name="REF_ID_EMPR_ACCT_TYPE" ColumnName="REF_ID_EMPR_ACCT_TYPE" />
+                <ScalarProperty Name="DTO_ID" ColumnName="DTO_ID" />
+                <ScalarProperty Name="EMP_INCLUDE_TRIBAL_PACKET" ColumnName="EMP_INCLUDE_TRIBAL_PACKET" />
+                <ScalarProperty Name="EMP_SUPPRESS_EMPR_PACKET" ColumnName="EMP_SUPPRESS_EMPR_PACKET" />
+                <ScalarProperty Name="REF_ID_DELIVERY_METHD" ColumnName="REF_ID_DELIVERY_METHD" />
+                <ScalarProperty Name="EMP_BUSNS_ACTVY" ColumnName="EMP_BUSNS_ACTVY" />
+                <ScalarProperty Name="EMP_RGSTRED_DATE" ColumnName="EMP_RGSTRED_DATE" />
+                <ScalarProperty Name="REF_ID_FORCE_OPEN_REASON" ColumnName="REF_ID_FORCE_OPEN_REASON" />
+                <ScalarProperty Name="EMP_BANKRUPTCY_FLAG" ColumnName="EMP_BANKRUPTCY_FLAG" />
+                <ScalarProperty Name="EMP_ADT_FLAG" ColumnName="EMP_ADT_FLAG" />
+                <ScalarProperty Name="EMP_APPEAL_FLAG" ColumnName="EMP_APPEAL_FLAG" />
+                <ScalarProperty Name="NAI_ID_PREVIOUS" ColumnName="NAI_ID_PREVIOUS" />
+                <ScalarProperty Name="EMP_HISTORICAL_DOC_CONVERTED" ColumnName="EMP_HISTORICAL_DOC_CONVERTED" />
+                <ScalarProperty Name="EMP_COLCTN_FLAG" ColumnName="EMP_COLCTN_FLAG" />
+                <ScalarProperty Name="EMP_DETRMN_DATE" ColumnName="EMP_DETRMN_DATE" />
+                <ScalarProperty Name="EMP_INVSTGN_FLAG" ColumnName="EMP_INVSTGN_FLAG" />
+                <ScalarProperty Name="EMP_EMPR_CLASS_EFCTV_DATE" ColumnName="EMP_EMPR_CLASS_EFCTV_DATE" />
+                <ScalarProperty Name="USR_LAST_MODFD_BY" ColumnName="USR_LAST_MODFD_BY" />
+                <ScalarProperty Name="EMP_LAST_MODFD_DATE" ColumnName="EMP_LAST_MODFD_DATE" />
+                <ScalarProperty Name="BTA_ID" ColumnName="BTA_ID" />
+                <ScalarProperty Name="EMP_COPES_SENT_FLAG" ColumnName="EMP_COPES_SENT_FLAG" />
+                <ScalarProperty Name="EMP_STATE_AGENCY_CD" ColumnName="EMP_STATE_AGENCY_CD" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TBL_EMPR_LIAB_PERIOD_ELP">
+            <EntityTypeMapping TypeName="NGTSLOB_dev2Model.TBL_EMPR_LIAB_PERIOD_ELP">
+              <MappingFragment StoreEntitySet="TBL_EMPR_LIAB_PERIOD_ELP">
+                <ScalarProperty Name="ELP_ID" ColumnName="ELP_ID" />
+                <ScalarProperty Name="ELP_LIAB_START_DATE" ColumnName="ELP_LIAB_START_DATE" />
+                <ScalarProperty Name="ELP_LIAB_END_DATE" ColumnName="ELP_LIAB_END_DATE" />
+                <ScalarProperty Name="REF_ID_REINSTATE_CHNG_REASON" ColumnName="REF_ID_REINSTATE_CHNG_REASON" />
+                <ScalarProperty Name="EMP_ID" ColumnName="EMP_ID" />
+                <ScalarProperty Name="REF_ID_LIAB_INACTV_REASON" ColumnName="REF_ID_LIAB_INACTV_REASON" />
+                <ScalarProperty Name="ELP_TITLE" ColumnName="ELP_TITLE" />
+                <ScalarProperty Name="ELP_NAME" ColumnName="ELP_NAME" />
+                <ScalarProperty Name="ELP_PHONE" ColumnName="ELP_PHONE" />
+                <ScalarProperty Name="ELP_PHONE_EXTENSION" ColumnName="ELP_PHONE_EXTENSION" />
+                <ScalarProperty Name="REF_ID_LIAB_TYPE" ColumnName="REF_ID_LIAB_TYPE" />
+                <ScalarProperty Name="USR_LAST_MODFD_BY" ColumnName="USR_LAST_MODFD_BY" />
+                <ScalarProperty Name="ELP_LAST_MODFD_DATE" ColumnName="ELP_LAST_MODFD_DATE" />
+                <ScalarProperty Name="BTA_ID" ColumnName="BTA_ID" />
+                <ScalarProperty Name="ELP_INACTV_DTS_DATE" ColumnName="ELP_INACTV_DTS_DATE" />
+                <ScalarProperty Name="ELP_ACTIVATION_DATE" ColumnName="ELP_ACTIVATION_DATE" />
+                <ScalarProperty Name="REF_ID_LIAB_CHNG_REASON" ColumnName="REF_ID_LIAB_CHNG_REASON" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TBL_TAX_RATE_TRA">
+            <EntityTypeMapping TypeName="NGTSLOB_dev2Model.TBL_TAX_RATE_TRA">
+              <MappingFragment StoreEntitySet="TBL_TAX_RATE_TRA">
+                <ScalarProperty Name="TRA_ID" ColumnName="TRA_ID" />
+                <ScalarProperty Name="TRA_GRADTD_SOCIAL_COST_FACTR" ColumnName="TRA_GRADTD_SOCIAL_COST_FACTR" />
+                <ScalarProperty Name="TRA_SOLVENCY_SURCHRG" ColumnName="TRA_SOLVENCY_SURCHRG" />
+                <ScalarProperty Name="TRA_TOT_TAX_RATE" ColumnName="TRA_TOT_TAX_RATE" />
+                <ScalarProperty Name="TRA_UI_LIMIT_REDUCTION" ColumnName="TRA_UI_LIMIT_REDUCTION" />
+                <ScalarProperty Name="TRA_UI_TAX_RATE" ColumnName="TRA_UI_TAX_RATE" />
+                <ScalarProperty Name="TRA_DELQNT_TAX_RATE" ColumnName="TRA_DELQNT_TAX_RATE" />
+                <ScalarProperty Name="TRC_ID" ColumnName="TRC_ID" />
+                <ScalarProperty Name="TRA_EMERGENCY_EXCESS_TAX" ColumnName="TRA_EMERGENCY_EXCESS_TAX" />
+                <ScalarProperty Name="TRA_RESERVE_ACCT_BALNC" ColumnName="TRA_RESERVE_ACCT_BALNC" />
+                <ScalarProperty Name="TRA_BNFT_RATIO" ColumnName="TRA_BNFT_RATIO" />
+                <ScalarProperty Name="TRA_RESERVE_RATIO" ColumnName="TRA_RESERVE_RATIO" />
+                <ScalarProperty Name="TRA_CNTRBNS_PD" ColumnName="TRA_CNTRBNS_PD" />
+                <ScalarProperty Name="TRA_MIN_MAX_CPP" ColumnName="TRA_MIN_MAX_CPP" />
+                <ScalarProperty Name="TRA_PREVIOUS_TAC" ColumnName="TRA_PREVIOUS_TAC" />
+                <ScalarProperty Name="TTP_ID" ColumnName="TTP_ID" />
+                <ScalarProperty Name="REF_ID_ASGNMN_METHD" ColumnName="REF_ID_ASGNMN_METHD" />
+                <ScalarProperty Name="REF_ID_SUB_ASGNMN_METHD" ColumnName="REF_ID_SUB_ASGNMN_METHD" />
+                <ScalarProperty Name="REF_ID_EMPR_QUALIFICATION" ColumnName="REF_ID_EMPR_QUALIFICATION" />
+                <ScalarProperty Name="USR_LAST_MODFD_BY" ColumnName="USR_LAST_MODFD_BY" />
+                <ScalarProperty Name="TRA_LAST_MODFD_DATE" ColumnName="TRA_LAST_MODFD_DATE" />
+                <ScalarProperty Name="BTA_ID" ColumnName="BTA_ID" />
+                <ScalarProperty Name="TRA_PROPOSED_TAX_RATE" ColumnName="TRA_PROPOSED_TAX_RATE" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TBL_WAGE_RPT_WRE">
+            <EntityTypeMapping TypeName="NGTSLOB_dev2Model.TBL_WAGE_RPT_WRE">
+              <MappingFragment StoreEntitySet="TBL_WAGE_RPT_WRE">
+                <ScalarProperty Name="WRE_ID" ColumnName="WRE_ID" />
+                <ScalarProperty Name="REF_ID_WAGE_RPT_METHD" ColumnName="REF_ID_WAGE_RPT_METHD" />
+                <ScalarProperty Name="WRE_QTR" ColumnName="WRE_QTR" />
+                <ScalarProperty Name="WRE_YR" ColumnName="WRE_YR" />
+                <ScalarProperty Name="WRE_GROSS_WAGES" ColumnName="WRE_GROSS_WAGES" />
+                <ScalarProperty Name="WRE_CHRG_INCORRECT_PENLTY_FLAG" ColumnName="WRE_CHRG_INCORRECT_PENLTY_FLAG" />
+                <ScalarProperty Name="REF_ID_WAGE_RPT_STATUS" ColumnName="REF_ID_WAGE_RPT_STATUS" />
+                <ScalarProperty Name="WRE_OUT_OF_STATE_WAGES" ColumnName="WRE_OUT_OF_STATE_WAGES" />
+                <ScalarProperty Name="WRE_ERROR_COUNT" ColumnName="WRE_ERROR_COUNT" />
+                <ScalarProperty Name="WRE_RECVD_DATE" ColumnName="WRE_RECVD_DATE" />
+                <ScalarProperty Name="EMP_ID" ColumnName="EMP_ID" />
+                <ScalarProperty Name="WRE_OUT_OF_STATE_EMPR_NAME" ColumnName="WRE_OUT_OF_STATE_EMPR_NAME" />
+                <ScalarProperty Name="REF_ID_RPT_TYPE" ColumnName="REF_ID_RPT_TYPE" />
+                <ScalarProperty Name="WRE_WAGE_IMBALNC_FLAG" ColumnName="WRE_WAGE_IMBALNC_FLAG" />
+                <ScalarProperty Name="WRE_MISSING_CORP_OFFICER_FLAG" ColumnName="WRE_MISSING_CORP_OFFICER_FLAG" />
+                <ScalarProperty Name="USR_LAST_MODFD_BY" ColumnName="USR_LAST_MODFD_BY" />
+                <ScalarProperty Name="WRE_LAST_MODFD_DATE" ColumnName="WRE_LAST_MODFD_DATE" />
+                <ScalarProperty Name="BTA_ID" ColumnName="BTA_ID" />
+                <ScalarProperty Name="WRE_RPTD_ORDER" ColumnName="WRE_RPTD_ORDER" />
+                <ScalarProperty Name="WRE_DUPLICATE_FLAG" ColumnName="WRE_DUPLICATE_FLAG" />
+                <ScalarProperty Name="WRE_PROCESS_DATE" ColumnName="WRE_PROCESS_DATE" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
