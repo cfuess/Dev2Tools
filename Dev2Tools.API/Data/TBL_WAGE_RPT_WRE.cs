@@ -14,6 +14,12 @@ namespace Dev2Tools.API.Data
     
     public partial class TBL_WAGE_RPT_WRE
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public TBL_WAGE_RPT_WRE()
+        {
+            this.TBL_TAX_RPT_TRE = new HashSet<TBL_TAX_RPT_TRE>();
+        }
+    
         public long WRE_ID { get; set; }
         public long REF_ID_WAGE_RPT_METHD { get; set; }
         public int WRE_QTR { get; set; }
@@ -37,5 +43,7 @@ namespace Dev2Tools.API.Data
         public Nullable<System.DateTime> WRE_PROCESS_DATE { get; set; }
     
         public virtual TBL_EMPR_EMP TBL_EMPR_EMP { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<TBL_TAX_RPT_TRE> TBL_TAX_RPT_TRE { get; set; }
     }
 }

@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="6d0aa4752a9c49f694e5d93e5980fcea" Name="Diagram1">
+      <Diagram DiagramId="6d0aa4752a9c49f694e5d93e5980fcea" Name="Diagram1" ZoomLevel="93">
         <EntityTypeShape EntityType="NGTSLOB_dev2Model.TBL_EMPR_EMP" Width="1.5" PointX="0.75" PointY="1.875" IsExpanded="true" />
         <EntityTypeShape EntityType="NGTSLOB_dev2Model.TBL_EMPR_LIAB_PERIOD_ELP" Width="1.5" PointX="3" PointY="1.375" IsExpanded="true" />
         <EntityTypeShape EntityType="NGTSLOB_dev2Model.TBL_TAX_RATE_TRA" Width="1.5" PointX="5.75" PointY="0.75" IsExpanded="true" />
@@ -12,6 +12,9 @@
         <AssociationConnector Association="NGTSLOB_dev2Model.FK_ELP1_EMP_ID" ManuallyRouted="false" />
         <AssociationConnector Association="NGTSLOB_dev2Model.FK_EMP18_EMP_ID" ManuallyRouted="false" />
         <AssociationConnector Association="NGTSLOB_dev2Model.FK_WRE3_EMP_ID" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="NGTSLOB_dev2Model.TBL_TAX_RPT_TRE" Width="1.5" PointX="8.25" PointY="2" />
+        <AssociationConnector Association="NGTSLOB_dev2Model.FK_TRE3_EMP_ID" />
+        <AssociationConnector Association="NGTSLOB_dev2Model.FK_TRE8_WRE_ID_SOURCE" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

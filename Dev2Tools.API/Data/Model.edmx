@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="NGTSLOB_dev2Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="NGTSLOB_dev2Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="TBL_EMPR_EMP">
           <Key>
             <PropertyRef Name="EMP_ID" />
@@ -100,6 +100,56 @@
           <Property Name="BTA_ID" Type="bigint" Nullable="false" />
           <Property Name="TRA_PROPOSED_TAX_RATE" Type="decimal" Precision="5" Scale="2" />
         </EntityType>
+        <EntityType Name="TBL_TAX_RPT_TRE">
+          <Key>
+            <PropertyRef Name="TRE_ID" />
+          </Key>
+          <Property Name="TRE_ID" Type="bigint" Nullable="false" />
+          <Property Name="REF_ID_TAX_RPT_METHD" Type="bigint" />
+          <Property Name="TRE_QTR" Type="int" Nullable="false" />
+          <Property Name="TRE_YR" Type="int" Nullable="false" />
+          <Property Name="TRE_RECVD_DATE" Type="date" Nullable="false" />
+          <Property Name="TRE_GROSS_WAGES" Type="decimal" Precision="19" Scale="2" Nullable="false" />
+          <Property Name="TRE_EXCESS_WAGES" Type="decimal" Precision="19" Scale="2" />
+          <Property Name="TRE_OUT_OF_STATE_WAGES" Type="decimal" Precision="19" Scale="2" />
+          <Property Name="TRE_TAXABLE_WAGES" Type="decimal" Precision="19" Scale="2" Nullable="false" />
+          <Property Name="TRE_INCORRECT_WAGE_RPT_FLAG" Type="nchar" MaxLength="1" Nullable="false" />
+          <Property Name="TRE_MISSING_WAGE_RPT_FLAG" Type="nchar" MaxLength="1" Nullable="false" />
+          <Property Name="REF_ID_TAX_RPT_STATUS" Type="bigint" Nullable="false" />
+          <Property Name="TRE_ERROR_COUNT" Type="int" Nullable="false" />
+          <Property Name="EMP_ID" Type="bigint" />
+          <Property Name="AED_ID_SOURCE" Type="bigint" />
+          <Property Name="WRE_ID_SOURCE" Type="bigint" />
+          <Property Name="TRE_SPLIT_DATE" Type="date" />
+          <Property Name="REF_ID_AMMENDED_REASON" Type="bigint" />
+          <Property Name="TRE_PENLTY_LEVEL_UPDT" Type="nchar" MaxLength="1" />
+          <Property Name="REF_ID_PENLTY_OCCURANCE_LEVEL" Type="bigint" />
+          <Property Name="TRE_INCORRECT_FORMAT_PENLTY_FL" Type="nchar" MaxLength="1" />
+          <Property Name="TRE_NO_PAYRL_THIS_QTR" Type="nchar" MaxLength="1" />
+          <Property Name="REF_ID_PEO_PENLTY_OCCURANCE_LE" Type="bigint" />
+          <Property Name="REF_ID_RPT_TYPE" Type="bigint" Nullable="false" />
+          <Property Name="USR_LAST_MODFD_BY" Type="bigint" Nullable="false" />
+          <Property Name="TRE_LAST_MODFD_DATE" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="BTA_ID" Type="bigint" Nullable="false" />
+          <Property Name="TRE_MISSINGWAGE1_DATE" Type="date" />
+          <Property Name="TRE_MISSINGWAGE2_DATE" Type="date" />
+          <Property Name="TRE_EXER_STOCK_OPTNS" Type="decimal" Precision="19" Scale="2" />
+          <Property Name="TRE_EXMPT_CORP_OFFICER_EARNING" Type="decimal" Precision="19" Scale="2" />
+          <Property Name="TRE_EXMPT_CORP_OFFICER_COUNT" Type="bigint" />
+          <Property Name="TRE_RPTD_ORDER" Type="int" Nullable="false" />
+          <Property Name="TRE_DUPLICATE_FLAG" Type="char" MaxLength="1" Nullable="false" />
+          <Property Name="TRE_CONFIRMATION_NBR" Type="nvarchar" MaxLength="20" />
+          <Property Name="CEF_ID_PREPARER" Type="bigint" />
+          <Property Name="CEF_ID_TAX_SPECIALIST" Type="bigint" />
+          <Property Name="TRE_PROCESS_DATE" Type="date" />
+          <Property Name="TRE_PRED_TAXABLE_WAGES" Type="decimal" Precision="19" Scale="2" />
+          <Property Name="TRE_SUB_TAXABLE_WAGES" Type="decimal" Precision="19" Scale="2" />
+          <Property Name="TRE_OUT_OF_STATE_WAGE_TAXABLE" Type="decimal" Precision="19" Scale="2" />
+          <Property Name="TRE_WA_EXCESS_WAGES" Type="decimal" Precision="19" Scale="2" />
+          <Property Name="TRE_PRED_ALLOWED" Type="decimal" Precision="19" Scale="2" />
+          <Property Name="TRE_SUB_ALLOWED" Type="decimal" Precision="19" Scale="2" />
+          <Property Name="TRE_OSW_ALLOWED" Type="decimal" Precision="19" Scale="2" />
+        </EntityType>
         <EntityType Name="TBL_WAGE_RPT_WRE">
           <Key>
             <PropertyRef Name="WRE_ID" />
@@ -150,6 +200,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_TRE3_EMP_ID">
+          <End Role="TBL_EMPR_EMP" Type="Self.TBL_EMPR_EMP" Multiplicity="0..1" />
+          <End Role="TBL_TAX_RPT_TRE" Type="Self.TBL_TAX_RPT_TRE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_EMPR_EMP">
+              <PropertyRef Name="EMP_ID" />
+            </Principal>
+            <Dependent Role="TBL_TAX_RPT_TRE">
+              <PropertyRef Name="EMP_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TRE8_WRE_ID_SOURCE">
+          <End Role="TBL_WAGE_RPT_WRE" Type="Self.TBL_WAGE_RPT_WRE" Multiplicity="0..1" />
+          <End Role="TBL_TAX_RPT_TRE" Type="Self.TBL_TAX_RPT_TRE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_WAGE_RPT_WRE">
+              <PropertyRef Name="WRE_ID" />
+            </Principal>
+            <Dependent Role="TBL_TAX_RPT_TRE">
+              <PropertyRef Name="WRE_ID_SOURCE" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_WRE3_EMP_ID">
           <End Role="TBL_EMPR_EMP" Type="Self.TBL_EMPR_EMP" Multiplicity="0..1" />
           <End Role="TBL_WAGE_RPT_WRE" Type="Self.TBL_WAGE_RPT_WRE" Multiplicity="*" />
@@ -166,6 +240,7 @@
           <EntitySet Name="TBL_EMPR_EMP" EntityType="Self.TBL_EMPR_EMP" Schema="NGT540" store:Type="Tables" />
           <EntitySet Name="TBL_EMPR_LIAB_PERIOD_ELP" EntityType="Self.TBL_EMPR_LIAB_PERIOD_ELP" Schema="NGT540" store:Type="Tables" />
           <EntitySet Name="TBL_TAX_RATE_TRA" EntityType="Self.TBL_TAX_RATE_TRA" Schema="NGT540" store:Type="Tables" />
+          <EntitySet Name="TBL_TAX_RPT_TRE" EntityType="Self.TBL_TAX_RPT_TRE" Schema="NGT540" store:Type="Tables" />
           <EntitySet Name="TBL_WAGE_RPT_WRE" EntityType="Self.TBL_WAGE_RPT_WRE" Schema="NGT540" store:Type="Tables" />
           <AssociationSet Name="FK_ELP1_EMP_ID" Association="Self.FK_ELP1_EMP_ID">
             <End Role="TBL_EMPR_EMP" EntitySet="TBL_EMPR_EMP" />
@@ -175,13 +250,20 @@
             <End Role="TBL_EMPR_EMP" EntitySet="TBL_EMPR_EMP" />
             <End Role="TBL_EMPR_EMP1" EntitySet="TBL_EMPR_EMP" />
           </AssociationSet>
+          <AssociationSet Name="FK_TRE3_EMP_ID" Association="Self.FK_TRE3_EMP_ID">
+            <End Role="TBL_EMPR_EMP" EntitySet="TBL_EMPR_EMP" />
+            <End Role="TBL_TAX_RPT_TRE" EntitySet="TBL_TAX_RPT_TRE" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TRE8_WRE_ID_SOURCE" Association="Self.FK_TRE8_WRE_ID_SOURCE">
+            <End Role="TBL_WAGE_RPT_WRE" EntitySet="TBL_WAGE_RPT_WRE" />
+            <End Role="TBL_TAX_RPT_TRE" EntitySet="TBL_TAX_RPT_TRE" />
+          </AssociationSet>
           <AssociationSet Name="FK_WRE3_EMP_ID" Association="Self.FK_WRE3_EMP_ID">
             <End Role="TBL_EMPR_EMP" EntitySet="TBL_EMPR_EMP" />
             <End Role="TBL_WAGE_RPT_WRE" EntitySet="TBL_WAGE_RPT_WRE" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="NGTSLOB_dev2Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -233,6 +315,7 @@
           <NavigationProperty Name="TBL_EMPR_EMP1" Relationship="Self.FK_EMP18_EMP_ID" FromRole="TBL_EMPR_EMP" ToRole="TBL_EMPR_EMP1" />
           <NavigationProperty Name="TBL_EMPR_EMP2" Relationship="Self.FK_EMP18_EMP_ID" FromRole="TBL_EMPR_EMP1" ToRole="TBL_EMPR_EMP" />
           <NavigationProperty Name="TBL_WAGE_RPT_WRE" Relationship="Self.FK_WRE3_EMP_ID" FromRole="TBL_EMPR_EMP" ToRole="TBL_WAGE_RPT_WRE" />
+          <NavigationProperty Name="TBL_TAX_RPT_TRE" Relationship="NGTSLOB_dev2Model.FK_TRE3_EMP_ID" FromRole="TBL_EMPR_EMP" ToRole="TBL_TAX_RPT_TRE" />
         </EntityType>
         <EntityType Name="TBL_EMPR_LIAB_PERIOD_ELP">
           <Key>
@@ -311,6 +394,7 @@
           <Property Name="WRE_DUPLICATE_FLAG" Type="String" MaxLength="1" FixedLength="true" Unicode="false" Nullable="false" />
           <Property Name="WRE_PROCESS_DATE" Type="DateTime" Precision="0" />
           <NavigationProperty Name="TBL_EMPR_EMP" Relationship="Self.FK_WRE3_EMP_ID" FromRole="TBL_WAGE_RPT_WRE" ToRole="TBL_EMPR_EMP" />
+          <NavigationProperty Name="TBL_TAX_RPT_TRE" Relationship="NGTSLOB_dev2Model.FK_TRE8_WRE_ID_SOURCE" FromRole="TBL_WAGE_RPT_WRE" ToRole="TBL_TAX_RPT_TRE" />
         </EntityType>
         <Association Name="FK_ELP1_EMP_ID">
           <End Role="TBL_EMPR_EMP" Type="Self.TBL_EMPR_EMP" Multiplicity="1" />
@@ -365,7 +449,92 @@
             <End Role="TBL_EMPR_EMP" EntitySet="TBL_EMPR_EMP" />
             <End Role="TBL_WAGE_RPT_WRE" EntitySet="TBL_WAGE_RPT_WRE" />
           </AssociationSet>
+          <EntitySet Name="TBL_TAX_RPT_TRE" EntityType="NGTSLOB_dev2Model.TBL_TAX_RPT_TRE" />
+          <AssociationSet Name="FK_TRE3_EMP_ID" Association="NGTSLOB_dev2Model.FK_TRE3_EMP_ID">
+            <End Role="TBL_EMPR_EMP" EntitySet="TBL_EMPR_EMP" />
+            <End Role="TBL_TAX_RPT_TRE" EntitySet="TBL_TAX_RPT_TRE" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TRE8_WRE_ID_SOURCE" Association="NGTSLOB_dev2Model.FK_TRE8_WRE_ID_SOURCE">
+            <End Role="TBL_WAGE_RPT_WRE" EntitySet="TBL_WAGE_RPT_WRE" />
+            <End Role="TBL_TAX_RPT_TRE" EntitySet="TBL_TAX_RPT_TRE" />
+          </AssociationSet>
         </EntityContainer>
+        <EntityType Name="TBL_TAX_RPT_TRE">
+          <Key>
+            <PropertyRef Name="TRE_ID" />
+          </Key>
+          <Property Name="TRE_ID" Type="Int64" Nullable="false" />
+          <Property Name="REF_ID_TAX_RPT_METHD" Type="Int64" />
+          <Property Name="TRE_QTR" Type="Int32" Nullable="false" />
+          <Property Name="TRE_YR" Type="Int32" Nullable="false" />
+          <Property Name="TRE_RECVD_DATE" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="TRE_GROSS_WAGES" Type="Decimal" Nullable="false" Precision="19" Scale="2" />
+          <Property Name="TRE_EXCESS_WAGES" Type="Decimal" Precision="19" Scale="2" />
+          <Property Name="TRE_OUT_OF_STATE_WAGES" Type="Decimal" Precision="19" Scale="2" />
+          <Property Name="TRE_TAXABLE_WAGES" Type="Decimal" Nullable="false" Precision="19" Scale="2" />
+          <Property Name="TRE_INCORRECT_WAGE_RPT_FLAG" Type="String" Nullable="false" MaxLength="1" FixedLength="true" Unicode="true" />
+          <Property Name="TRE_MISSING_WAGE_RPT_FLAG" Type="String" Nullable="false" MaxLength="1" FixedLength="true" Unicode="true" />
+          <Property Name="REF_ID_TAX_RPT_STATUS" Type="Int64" Nullable="false" />
+          <Property Name="TRE_ERROR_COUNT" Type="Int32" Nullable="false" />
+          <Property Name="EMP_ID" Type="Int64" />
+          <Property Name="AED_ID_SOURCE" Type="Int64" />
+          <Property Name="WRE_ID_SOURCE" Type="Int64" />
+          <Property Name="TRE_SPLIT_DATE" Type="DateTime" Precision="0" />
+          <Property Name="REF_ID_AMMENDED_REASON" Type="Int64" />
+          <Property Name="TRE_PENLTY_LEVEL_UPDT" Type="String" MaxLength="1" FixedLength="true" Unicode="true" />
+          <Property Name="REF_ID_PENLTY_OCCURANCE_LEVEL" Type="Int64" />
+          <Property Name="TRE_INCORRECT_FORMAT_PENLTY_FL" Type="String" MaxLength="1" FixedLength="true" Unicode="true" />
+          <Property Name="TRE_NO_PAYRL_THIS_QTR" Type="String" MaxLength="1" FixedLength="true" Unicode="true" />
+          <Property Name="REF_ID_PEO_PENLTY_OCCURANCE_LE" Type="Int64" />
+          <Property Name="REF_ID_RPT_TYPE" Type="Int64" Nullable="false" />
+          <Property Name="USR_LAST_MODFD_BY" Type="Int64" Nullable="false" />
+          <Property Name="TRE_LAST_MODFD_DATE" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="BTA_ID" Type="Int64" Nullable="false" />
+          <Property Name="TRE_MISSINGWAGE1_DATE" Type="DateTime" Precision="0" />
+          <Property Name="TRE_MISSINGWAGE2_DATE" Type="DateTime" Precision="0" />
+          <Property Name="TRE_EXER_STOCK_OPTNS" Type="Decimal" Precision="19" Scale="2" />
+          <Property Name="TRE_EXMPT_CORP_OFFICER_EARNING" Type="Decimal" Precision="19" Scale="2" />
+          <Property Name="TRE_EXMPT_CORP_OFFICER_COUNT" Type="Int64" />
+          <Property Name="TRE_RPTD_ORDER" Type="Int32" Nullable="false" />
+          <Property Name="TRE_DUPLICATE_FLAG" Type="String" Nullable="false" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="TRE_CONFIRMATION_NBR" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="CEF_ID_PREPARER" Type="Int64" />
+          <Property Name="CEF_ID_TAX_SPECIALIST" Type="Int64" />
+          <Property Name="TRE_PROCESS_DATE" Type="DateTime" Precision="0" />
+          <Property Name="TRE_PRED_TAXABLE_WAGES" Type="Decimal" Precision="19" Scale="2" />
+          <Property Name="TRE_SUB_TAXABLE_WAGES" Type="Decimal" Precision="19" Scale="2" />
+          <Property Name="TRE_OUT_OF_STATE_WAGE_TAXABLE" Type="Decimal" Precision="19" Scale="2" />
+          <Property Name="TRE_WA_EXCESS_WAGES" Type="Decimal" Precision="19" Scale="2" />
+          <Property Name="TRE_PRED_ALLOWED" Type="Decimal" Precision="19" Scale="2" />
+          <Property Name="TRE_SUB_ALLOWED" Type="Decimal" Precision="19" Scale="2" />
+          <Property Name="TRE_OSW_ALLOWED" Type="Decimal" Precision="19" Scale="2" />
+          <NavigationProperty Name="TBL_EMPR_EMP" Relationship="NGTSLOB_dev2Model.FK_TRE3_EMP_ID" FromRole="TBL_TAX_RPT_TRE" ToRole="TBL_EMPR_EMP" />
+          <NavigationProperty Name="TBL_WAGE_RPT_WRE" Relationship="NGTSLOB_dev2Model.FK_TRE8_WRE_ID_SOURCE" FromRole="TBL_TAX_RPT_TRE" ToRole="TBL_WAGE_RPT_WRE" />
+        </EntityType>
+        <Association Name="FK_TRE3_EMP_ID">
+          <End Type="NGTSLOB_dev2Model.TBL_EMPR_EMP" Role="TBL_EMPR_EMP" Multiplicity="0..1" />
+          <End Type="NGTSLOB_dev2Model.TBL_TAX_RPT_TRE" Role="TBL_TAX_RPT_TRE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_EMPR_EMP">
+              <PropertyRef Name="EMP_ID" />
+            </Principal>
+            <Dependent Role="TBL_TAX_RPT_TRE">
+              <PropertyRef Name="EMP_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TRE8_WRE_ID_SOURCE">
+          <End Type="NGTSLOB_dev2Model.TBL_WAGE_RPT_WRE" Role="TBL_WAGE_RPT_WRE" Multiplicity="0..1" />
+          <End Type="NGTSLOB_dev2Model.TBL_TAX_RPT_TRE" Role="TBL_TAX_RPT_TRE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_WAGE_RPT_WRE">
+              <PropertyRef Name="WRE_ID" />
+            </Principal>
+            <Dependent Role="TBL_TAX_RPT_TRE">
+              <PropertyRef Name="WRE_ID_SOURCE" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -494,6 +663,57 @@
                 <ScalarProperty Name="WRE_RPTD_ORDER" ColumnName="WRE_RPTD_ORDER" />
                 <ScalarProperty Name="WRE_DUPLICATE_FLAG" ColumnName="WRE_DUPLICATE_FLAG" />
                 <ScalarProperty Name="WRE_PROCESS_DATE" ColumnName="WRE_PROCESS_DATE" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TBL_TAX_RPT_TRE">
+            <EntityTypeMapping TypeName="NGTSLOB_dev2Model.TBL_TAX_RPT_TRE">
+              <MappingFragment StoreEntitySet="TBL_TAX_RPT_TRE">
+                <ScalarProperty Name="TRE_OSW_ALLOWED" ColumnName="TRE_OSW_ALLOWED" />
+                <ScalarProperty Name="TRE_SUB_ALLOWED" ColumnName="TRE_SUB_ALLOWED" />
+                <ScalarProperty Name="TRE_PRED_ALLOWED" ColumnName="TRE_PRED_ALLOWED" />
+                <ScalarProperty Name="TRE_WA_EXCESS_WAGES" ColumnName="TRE_WA_EXCESS_WAGES" />
+                <ScalarProperty Name="TRE_OUT_OF_STATE_WAGE_TAXABLE" ColumnName="TRE_OUT_OF_STATE_WAGE_TAXABLE" />
+                <ScalarProperty Name="TRE_SUB_TAXABLE_WAGES" ColumnName="TRE_SUB_TAXABLE_WAGES" />
+                <ScalarProperty Name="TRE_PRED_TAXABLE_WAGES" ColumnName="TRE_PRED_TAXABLE_WAGES" />
+                <ScalarProperty Name="TRE_PROCESS_DATE" ColumnName="TRE_PROCESS_DATE" />
+                <ScalarProperty Name="CEF_ID_TAX_SPECIALIST" ColumnName="CEF_ID_TAX_SPECIALIST" />
+                <ScalarProperty Name="CEF_ID_PREPARER" ColumnName="CEF_ID_PREPARER" />
+                <ScalarProperty Name="TRE_CONFIRMATION_NBR" ColumnName="TRE_CONFIRMATION_NBR" />
+                <ScalarProperty Name="TRE_DUPLICATE_FLAG" ColumnName="TRE_DUPLICATE_FLAG" />
+                <ScalarProperty Name="TRE_RPTD_ORDER" ColumnName="TRE_RPTD_ORDER" />
+                <ScalarProperty Name="TRE_EXMPT_CORP_OFFICER_COUNT" ColumnName="TRE_EXMPT_CORP_OFFICER_COUNT" />
+                <ScalarProperty Name="TRE_EXMPT_CORP_OFFICER_EARNING" ColumnName="TRE_EXMPT_CORP_OFFICER_EARNING" />
+                <ScalarProperty Name="TRE_EXER_STOCK_OPTNS" ColumnName="TRE_EXER_STOCK_OPTNS" />
+                <ScalarProperty Name="TRE_MISSINGWAGE2_DATE" ColumnName="TRE_MISSINGWAGE2_DATE" />
+                <ScalarProperty Name="TRE_MISSINGWAGE1_DATE" ColumnName="TRE_MISSINGWAGE1_DATE" />
+                <ScalarProperty Name="BTA_ID" ColumnName="BTA_ID" />
+                <ScalarProperty Name="TRE_LAST_MODFD_DATE" ColumnName="TRE_LAST_MODFD_DATE" />
+                <ScalarProperty Name="USR_LAST_MODFD_BY" ColumnName="USR_LAST_MODFD_BY" />
+                <ScalarProperty Name="REF_ID_RPT_TYPE" ColumnName="REF_ID_RPT_TYPE" />
+                <ScalarProperty Name="REF_ID_PEO_PENLTY_OCCURANCE_LE" ColumnName="REF_ID_PEO_PENLTY_OCCURANCE_LE" />
+                <ScalarProperty Name="TRE_NO_PAYRL_THIS_QTR" ColumnName="TRE_NO_PAYRL_THIS_QTR" />
+                <ScalarProperty Name="TRE_INCORRECT_FORMAT_PENLTY_FL" ColumnName="TRE_INCORRECT_FORMAT_PENLTY_FL" />
+                <ScalarProperty Name="REF_ID_PENLTY_OCCURANCE_LEVEL" ColumnName="REF_ID_PENLTY_OCCURANCE_LEVEL" />
+                <ScalarProperty Name="TRE_PENLTY_LEVEL_UPDT" ColumnName="TRE_PENLTY_LEVEL_UPDT" />
+                <ScalarProperty Name="REF_ID_AMMENDED_REASON" ColumnName="REF_ID_AMMENDED_REASON" />
+                <ScalarProperty Name="TRE_SPLIT_DATE" ColumnName="TRE_SPLIT_DATE" />
+                <ScalarProperty Name="WRE_ID_SOURCE" ColumnName="WRE_ID_SOURCE" />
+                <ScalarProperty Name="AED_ID_SOURCE" ColumnName="AED_ID_SOURCE" />
+                <ScalarProperty Name="EMP_ID" ColumnName="EMP_ID" />
+                <ScalarProperty Name="TRE_ERROR_COUNT" ColumnName="TRE_ERROR_COUNT" />
+                <ScalarProperty Name="REF_ID_TAX_RPT_STATUS" ColumnName="REF_ID_TAX_RPT_STATUS" />
+                <ScalarProperty Name="TRE_MISSING_WAGE_RPT_FLAG" ColumnName="TRE_MISSING_WAGE_RPT_FLAG" />
+                <ScalarProperty Name="TRE_INCORRECT_WAGE_RPT_FLAG" ColumnName="TRE_INCORRECT_WAGE_RPT_FLAG" />
+                <ScalarProperty Name="TRE_TAXABLE_WAGES" ColumnName="TRE_TAXABLE_WAGES" />
+                <ScalarProperty Name="TRE_OUT_OF_STATE_WAGES" ColumnName="TRE_OUT_OF_STATE_WAGES" />
+                <ScalarProperty Name="TRE_EXCESS_WAGES" ColumnName="TRE_EXCESS_WAGES" />
+                <ScalarProperty Name="TRE_GROSS_WAGES" ColumnName="TRE_GROSS_WAGES" />
+                <ScalarProperty Name="TRE_RECVD_DATE" ColumnName="TRE_RECVD_DATE" />
+                <ScalarProperty Name="TRE_YR" ColumnName="TRE_YR" />
+                <ScalarProperty Name="TRE_QTR" ColumnName="TRE_QTR" />
+                <ScalarProperty Name="REF_ID_TAX_RPT_METHD" ColumnName="REF_ID_TAX_RPT_METHD" />
+                <ScalarProperty Name="TRE_ID" ColumnName="TRE_ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

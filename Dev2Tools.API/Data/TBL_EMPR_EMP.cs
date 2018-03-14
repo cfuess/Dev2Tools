@@ -19,6 +19,7 @@ namespace Dev2Tools.API.Data
         {
             this.TBL_EMPR_LIAB_PERIOD_ELP = new HashSet<TBL_EMPR_LIAB_PERIOD_ELP>();
             this.TBL_WAGE_RPT_WRE = new HashSet<TBL_WAGE_RPT_WRE>();
+            this.TBL_TAX_RPT_TRE = new HashSet<TBL_TAX_RPT_TRE>();
         }
     
         public long EMP_ID { get; set; }
@@ -68,5 +69,7 @@ namespace Dev2Tools.API.Data
         public virtual TBL_EMPR_EMP TBL_EMPR_EMP2 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TBL_WAGE_RPT_WRE> TBL_WAGE_RPT_WRE { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<TBL_TAX_RPT_TRE> TBL_TAX_RPT_TRE { get; set; }
     }
 }

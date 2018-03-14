@@ -29,5 +29,6 @@ namespace Dev2Tools.API.Data
         public virtual DbSet<TBL_EMPR_LIAB_PERIOD_ELP> TBL_EMPR_LIAB_PERIOD_ELP { get; set; }
         public virtual DbSet<TBL_TAX_RATE_TRA> TBL_TAX_RATE_TRA { get; set; }
         public virtual DbSet<TBL_WAGE_RPT_WRE> TBL_WAGE_RPT_WRE { get; set; }
+        public virtual DbSet<TBL_TAX_RPT_TRE> TBL_TAX_RPT_TRE { get; set; }
     }
 }

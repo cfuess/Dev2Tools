@@ -47,7 +47,8 @@ namespace Dev2Tools.API.Controllers
                     {
                         Qtr = wage.WRE_QTR,
                         Year = wage.WRE_YR,
-                        Gross = wage.WRE_GROSS_WAGES
+                        Gross = wage.WRE_GROSS_WAGES,
+                        IsNoPayroll = wage.TBL_TAX_RPT_TRE.Any(t => t.TRE_NO_PAYRL_THIS_QTR == "N")
                     });
                 }
             }
