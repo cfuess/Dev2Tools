@@ -2,7 +2,7 @@
 <div>
 
   <div class="d-flex justify-content-between">
-      <h4>{{name}} <span class="empId">{{empId}}</span></h4>
+      <h4>{{name}} <span class="empId">(empId {{empId}})</span></h4>
       <div>
           ESD # 
           <input type="text" v-model="esdNum">
@@ -33,7 +33,8 @@ export default {
 
     doSearch: function(event) {
       let vm = this;
-      axios.get(`http://localhost:61101/api/Ngts/${this.esdNum}`)
+      vm.esdNum = vm.esdNum.replace(/\D/g,'');
+      axios.get(`http://localhost:61101/api/Ngts/${vm.esdNum}`)
         .then(function(response) {
           console.log(response);
           vm.loadChart(response.data)
@@ -52,9 +53,12 @@ export default {
         function drawChart() {
             var colStartOpts = { type: 'date', pattern: 'M/d/yy', id: 'Start' };
             var colEndOpts = { type: 'date', pattern: 'M/d/yy', id: 'End' };
+            var barColors = [];
+
             var container = document.getElementById('example5.1');
             var chart = new google.visualization.Timeline(container);
             var dataTable = new google.visualization.DataTable();
+            
             dataTable.addColumn({ type: 'string', id: 'Room' });
             dataTable.addColumn({ type: 'string', id: 'Value' });
             dataTable.addColumn(colStartOpts);
@@ -67,6 +71,8 @@ export default {
                 var mDate1 = startDate1.format("M/D/YY");
                 var mDate2 = startDate2.format("M/D/YY");
 
+                barColors.push('#0288d1');
+
                 dataTable.addRow(['Active', mDate1 + ' - ' + mDate2, startDate1.toDate(), startDate2.toDate()]);
             });
 
@@ -76,11 +82,20 @@ export default {
 
                 var mDate1 = startDate1.format("M/D/YY");
                 var mDate2 = startDate2.format("M/D/YY");
+
+                if (element.IsNoPayroll) {
+                  barColors.push('#bdbdbd');
+                  console.log(`${mDate1} : ${element.IsNoPayroll}`)
+                }
+                else {
+                  barColors.push('#c53929');
+                }
                 dataTable.addRow(['Wages', element.Gross.toString(), startDate1.toDate(), startDate2.toDate()]);
             });
 
             var options = {
-                timeline: { colorByRowLabel: true },
+                //timeline: { colorByRowLabel: true },
+                colors: barColors,
                 hAxis: {
                     format: 'M/d/yy'
                 }
