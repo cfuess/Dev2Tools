@@ -47,102 +47,111 @@ export default {
             this.num = employer.EsdNum;
             cookies.set('esdNum', employer.EsdNum)
 
-
             google.charts.load("current", { packages: ["timeline"] });
-            google.charts.setOnLoadCallback(drawChart);
+            console.log("stuff1");
+            debugger;
 
-            function drawChart() {
-                var barColors = [];
+            google.charts.setOnLoadCallback(
+                function() {
+                    console.log("stuff2");
+                    this.drawChart(employer)
+                    console.log("stuff4");
+                }
+            );
+            console.log("stuff5");
+        },
 
-                var container = document.getElementById('example5.1');
-                var chart = new google.visualization.Timeline(container);
-                var dataTable = new google.visualization.DataTable();
+        drawChart: function(employer) {
+            console.log("stuff3");
+            var barColors = [];
 
-                dataTable.addColumn({ type: 'string', id: 'Room' });
-                dataTable.addColumn({ type: 'string', id: 'Value' });
-                dataTable.addColumn({ type: 'string', role: 'tooltip' });
-                dataTable.addColumn({ type: 'date', id: 'Start' });
-                dataTable.addColumn({ type: 'date', id: 'End' });
+            var container = document.getElementById('example5.1');
+            var chart = new google.visualization.Timeline(container);
+            var dataTable = new google.visualization.DataTable();
 
-                employer.LiabilityPeriods.forEach((element, index, array) => {
-                    var startDate1 = moment(element.StartDate);
-                    var startDate2 = moment(element.EndDate);
+            dataTable.addColumn({ type: 'string', id: 'Item' });
+            dataTable.addColumn({ type: 'string', id: 'Label' });
+            dataTable.addColumn({ type: 'string', role: 'tooltip' });
+            dataTable.addColumn({ type: 'date', id: 'Start' });
+            dataTable.addColumn({ type: 'date', id: 'End' });
 
-                    var mDate1 = startDate1.format("M/D/YY");
-                    var mDate2 = startDate2.format("M/D/YY");
+            employer.LiabilityPeriods.forEach((element, index, array) => {
+                var startDate1 = moment(element.StartDate);
+                var startDate2 = moment(element.EndDate);
 
-                    var barLabel = mDate1 + ' - ' + mDate2;
-                    var d = startDate2.diff(startDate1, 'years', true);
-                    var dRound = Math.round(d * 100) / 100
-                    var tooltip = dRound + ' years ' + ' - Active:' + barLabel;
+                var mDate1 = startDate1.format("M/D/YY");
+                var mDate2 = startDate2.format("M/D/YY");
 
-                    barColors.push('#0288d1');
+                var barLabel = mDate1 + ' - ' + mDate2;
+                var d = startDate2.diff(startDate1, 'years', true);
+                var dRound = Math.round(d * 100) / 100
+                var tooltip = dRound + ' years ' + ' - Active:' + barLabel;
 
-                    dataTable.addRow(['Active', barLabel, tooltip, startDate1.toDate(), startDate2.toDate()]);
+                barColors.push('#0288d1');
+
+                dataTable.addRow(['Active', barLabel, tooltip, startDate1.toDate(), startDate2.toDate()]);
+            });
+
+            employer.WagePeriods.forEach((element, index, array) => {
+                var startDate1 = moment(element.StartDate);
+                var startDate2 = moment(element.EndDate);
+                var mDate1 = startDate1.format("M/D/YY");
+                var mDate2 = startDate2.format("M/D/YY");
+
+                var nf = new Intl.NumberFormat('en-US', {
+                    style: 'currency',
+                    currency: 'USD',
+                    minimumFractionDigits: 2,
+                    maximumFractionDigits: 2
                 });
 
-                employer.WagePeriods.forEach((element, index, array) => {
-                    var startDate1 = moment(element.StartDate);
-                    var startDate2 = moment(element.EndDate);
-                    //debugger;
-                    var mDate1 = startDate1.format("M/D/YY");
-                    var mDate2 = startDate2.format("M/D/YY");
+                var tooltip = 'Q' + startDate1.quarter().toString() + ' ' + moment(element.StartDate).format("YYYY")
+                    + ' ' + nf.format(element.Gross);
 
-                    var nf = new Intl.NumberFormat('en-US', {
-                        style: 'currency',
-                        currency: 'USD',
-                        minimumFractionDigits: 2,
-                        maximumFractionDigits: 2
-                    });
+                if (element.IsNoPayroll) {
+                    tooltip = 'No Payroll - ' + tooltip;
+                    barColors.push('#bdbdbd');
+                    console.log(`${mDate1} : ${element.IsNoPayroll}`)
+                }
+                else {
+                    barColors.push('#c53929');
+                }
+                dataTable.addRow(['Wages', '', tooltip, startDate1.toDate(), startDate2.toDate()]);
+            });
 
-                    var tooltip = 'Q' + startDate1.quarter().toString() + ' ' + moment(element.StartDate).format("YYYY")
-                        + ' ' + nf.format(element.Gross);
-
-                    if (element.IsNoPayroll) {
-                        tooltip = 'No Payroll - ' + tooltip;
-                        barColors.push('#bdbdbd');
-                        console.log(`${mDate1} : ${element.IsNoPayroll}`)
-                    }
-                    else {
-                        barColors.push('#c53929');
-                    }
-                    dataTable.addRow(['Wages', '', tooltip, startDate1.toDate(), startDate2.toDate()]);
-                });
-
-                var options = {
-                    //timeline: { colorByRowLabel: true },
-                    //colors: barColors,
-                    colors: ['#cbb69d', '#333', '#603913'],
-                    hAxis: {
-                        format: 'M/d/yy'
-                    }
-                };
+            var options = {
+                //timeline: { colorByRowLabel: true },
+                colors: barColors,
+                hAxis: {
+                    format: 'M/d/yy'
+                }
+            };
 
 
-                var dataTable2 = new google.visualization.DataTable();
-                dataTable2.addColumn({ type: 'string', id: 'Role' });
-                dataTable2.addColumn({ type: 'string', id: 'Name' });
-                dataTable2.addColumn({ type: 'date', id: 'Start' });
-                dataTable2.addColumn({ type: 'date', id: 'End' });
-                dataTable2.addRows([
-                    ['Washington', 'George Washington', new Date(1789, 3, 30), new Date(1797, 2, 4)],
-                    ['Adams', 'John Adams', new Date(1797, 2, 4), new Date(1801, 2, 4)],
-                    ['Jefferson', 'Thomas Jefferson', new Date(1801, 2, 4), new Date(1809, 2, 4)]]);
+            // var dataTable2 = new google.visualization.DataTable();
+            // dataTable2.addColumn({ type: 'string', id: 'Role' });
+            // dataTable2.addColumn({ type: 'string', id: 'Name' });
+            // dataTable2.addColumn({ type: 'date', id: 'Start' });
+            // dataTable2.addColumn({ type: 'date', id: 'End' });
+            // dataTable2.addRows([
+            //     ['Washington', 'George Washington', new Date(1789, 3, 30), new Date(1797, 2, 4)],
+            //     ['Adams', 'John Adams', new Date(1797, 2, 4), new Date(1801, 2, 4)],
+            //     ['Jefferson', 'Thomas Jefferson', new Date(1801, 2, 4), new Date(1809, 2, 4)]]);
 
 
-                var options2 = {
-                    colors: ['#cbb69d', '#c62', '#603913'],
-                    timeline: {
-                        rowLabelStyle: { fontName: 'Helvetica', fontSize: 24, color: '#603913' },
-                        barLabelStyle: { fontName: 'Garamond', fontSize: 14 }
-                    }
-                };
+            // var options2 = {
+            //     colors: ['#cbb69d', '#c62', '#603913'],
+            //     timeline: {
+            //         rowLabelStyle: { fontName: 'Helvetica', fontSize: 24, color: '#603913' },
+            //         barLabelStyle: { fontName: 'Garamond', fontSize: 14 }
+            //     }
+            // };
 
-                chart.draw(dataTable2, options2);
+            //chart.draw(dataTable2, options2);
 
-                //chart.draw(dataTable, options);
-            }
+            chart.draw(dataTable, options);
         }
+
 
     },
 

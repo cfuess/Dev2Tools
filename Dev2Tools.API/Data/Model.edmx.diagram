@@ -15,6 +15,8 @@
         <EntityTypeShape EntityType="NGTSLOB_dev2Model.TBL_TAX_RPT_TRE" Width="1.5" PointX="8.25" PointY="2" />
         <AssociationConnector Association="NGTSLOB_dev2Model.FK_TRE3_EMP_ID" />
         <AssociationConnector Association="NGTSLOB_dev2Model.FK_TRE8_WRE_ID_SOURCE" />
+        <EntityTypeShape EntityType="NGTSLOB_dev2Model.TBL_ADDTL_BUSNS_NAME_ABN" Width="1.5" PointX="3" PointY="13.25" />
+        <AssociationConnector Association="NGTSLOB_dev2Model.FK_ABN3_EMP_ID" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

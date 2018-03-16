@@ -5,6 +5,21 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="NGTSLOB_dev2Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="TBL_ADDTL_BUSNS_NAME_ABN">
+          <Key>
+            <PropertyRef Name="ABN_ID" />
+          </Key>
+          <Property Name="ABN_ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ABN_ADDTL_BUSNS_NAME" Type="nvarchar" MaxLength="60" Nullable="false" />
+          <Property Name="REF_ID_ADDTL_BUSNS_NAME_TYPE" Type="bigint" Nullable="false" />
+          <Property Name="REF_ID_ADDTL_BUSNS_NAME_STATUS" Type="bigint" Nullable="false" />
+          <Property Name="EMP_ID" Type="bigint" Nullable="false" />
+          <Property Name="ABN_EFCTV_DATE" Type="date" Nullable="false" />
+          <Property Name="ABN_EXPIRTN_DATE" Type="date" />
+          <Property Name="USR_LAST_MODFD_BY" Type="bigint" Nullable="false" />
+          <Property Name="ABN_LAST_MODFD_DATE" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="BTA_ID" Type="bigint" Nullable="false" />
+        </EntityType>
         <EntityType Name="TBL_EMPR_EMP">
           <Key>
             <PropertyRef Name="EMP_ID" />
@@ -176,6 +191,18 @@
           <Property Name="WRE_DUPLICATE_FLAG" Type="char" MaxLength="1" Nullable="false" />
           <Property Name="WRE_PROCESS_DATE" Type="date" />
         </EntityType>
+        <Association Name="FK_ABN3_EMP_ID">
+          <End Role="TBL_EMPR_EMP" Type="Self.TBL_EMPR_EMP" Multiplicity="1" />
+          <End Role="TBL_ADDTL_BUSNS_NAME_ABN" Type="Self.TBL_ADDTL_BUSNS_NAME_ABN" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_EMPR_EMP">
+              <PropertyRef Name="EMP_ID" />
+            </Principal>
+            <Dependent Role="TBL_ADDTL_BUSNS_NAME_ABN">
+              <PropertyRef Name="EMP_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_ELP1_EMP_ID">
           <End Role="TBL_EMPR_EMP" Type="Self.TBL_EMPR_EMP" Multiplicity="1" />
           <End Role="TBL_EMPR_LIAB_PERIOD_ELP" Type="Self.TBL_EMPR_LIAB_PERIOD_ELP" Multiplicity="*" />
@@ -237,11 +264,16 @@
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="NGTSLOB_dev2ModelStoreContainer">
+          <EntitySet Name="TBL_ADDTL_BUSNS_NAME_ABN" EntityType="Self.TBL_ADDTL_BUSNS_NAME_ABN" Schema="NGT540" store:Type="Tables" />
           <EntitySet Name="TBL_EMPR_EMP" EntityType="Self.TBL_EMPR_EMP" Schema="NGT540" store:Type="Tables" />
           <EntitySet Name="TBL_EMPR_LIAB_PERIOD_ELP" EntityType="Self.TBL_EMPR_LIAB_PERIOD_ELP" Schema="NGT540" store:Type="Tables" />
           <EntitySet Name="TBL_TAX_RATE_TRA" EntityType="Self.TBL_TAX_RATE_TRA" Schema="NGT540" store:Type="Tables" />
           <EntitySet Name="TBL_TAX_RPT_TRE" EntityType="Self.TBL_TAX_RPT_TRE" Schema="NGT540" store:Type="Tables" />
           <EntitySet Name="TBL_WAGE_RPT_WRE" EntityType="Self.TBL_WAGE_RPT_WRE" Schema="NGT540" store:Type="Tables" />
+          <AssociationSet Name="FK_ABN3_EMP_ID" Association="Self.FK_ABN3_EMP_ID">
+            <End Role="TBL_EMPR_EMP" EntitySet="TBL_EMPR_EMP" />
+            <End Role="TBL_ADDTL_BUSNS_NAME_ABN" EntitySet="TBL_ADDTL_BUSNS_NAME_ABN" />
+          </AssociationSet>
           <AssociationSet Name="FK_ELP1_EMP_ID" Association="Self.FK_ELP1_EMP_ID">
             <End Role="TBL_EMPR_EMP" EntitySet="TBL_EMPR_EMP" />
             <End Role="TBL_EMPR_LIAB_PERIOD_ELP" EntitySet="TBL_EMPR_LIAB_PERIOD_ELP" />
@@ -316,6 +348,7 @@
           <NavigationProperty Name="TBL_EMPR_EMP2" Relationship="Self.FK_EMP18_EMP_ID" FromRole="TBL_EMPR_EMP1" ToRole="TBL_EMPR_EMP" />
           <NavigationProperty Name="TBL_WAGE_RPT_WRE" Relationship="Self.FK_WRE3_EMP_ID" FromRole="TBL_EMPR_EMP" ToRole="TBL_WAGE_RPT_WRE" />
           <NavigationProperty Name="TBL_TAX_RPT_TRE" Relationship="NGTSLOB_dev2Model.FK_TRE3_EMP_ID" FromRole="TBL_EMPR_EMP" ToRole="TBL_TAX_RPT_TRE" />
+          <NavigationProperty Name="TBL_ADDTL_BUSNS_NAME_ABN" Relationship="NGTSLOB_dev2Model.FK_ABN3_EMP_ID" FromRole="TBL_EMPR_EMP" ToRole="TBL_ADDTL_BUSNS_NAME_ABN" />
         </EntityType>
         <EntityType Name="TBL_EMPR_LIAB_PERIOD_ELP">
           <Key>
@@ -458,6 +491,11 @@
             <End Role="TBL_WAGE_RPT_WRE" EntitySet="TBL_WAGE_RPT_WRE" />
             <End Role="TBL_TAX_RPT_TRE" EntitySet="TBL_TAX_RPT_TRE" />
           </AssociationSet>
+          <EntitySet Name="TBL_ADDTL_BUSNS_NAME_ABN" EntityType="NGTSLOB_dev2Model.TBL_ADDTL_BUSNS_NAME_ABN" />
+          <AssociationSet Name="FK_ABN3_EMP_ID" Association="NGTSLOB_dev2Model.FK_ABN3_EMP_ID">
+            <End Role="TBL_EMPR_EMP" EntitySet="TBL_EMPR_EMP" />
+            <End Role="TBL_ADDTL_BUSNS_NAME_ABN" EntitySet="TBL_ADDTL_BUSNS_NAME_ABN" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="TBL_TAX_RPT_TRE">
           <Key>
@@ -532,6 +570,34 @@
             </Principal>
             <Dependent Role="TBL_TAX_RPT_TRE">
               <PropertyRef Name="WRE_ID_SOURCE" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="TBL_ADDTL_BUSNS_NAME_ABN">
+          <Key>
+            <PropertyRef Name="ABN_ID" />
+          </Key>
+          <Property Name="ABN_ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ABN_ADDTL_BUSNS_NAME" Type="String" Nullable="false" MaxLength="60" FixedLength="false" Unicode="true" />
+          <Property Name="REF_ID_ADDTL_BUSNS_NAME_TYPE" Type="Int64" Nullable="false" />
+          <Property Name="REF_ID_ADDTL_BUSNS_NAME_STATUS" Type="Int64" Nullable="false" />
+          <Property Name="EMP_ID" Type="Int64" Nullable="false" />
+          <Property Name="ABN_EFCTV_DATE" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="ABN_EXPIRTN_DATE" Type="DateTime" Precision="0" />
+          <Property Name="USR_LAST_MODFD_BY" Type="Int64" Nullable="false" />
+          <Property Name="ABN_LAST_MODFD_DATE" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="BTA_ID" Type="Int64" Nullable="false" />
+          <NavigationProperty Name="TBL_EMPR_EMP" Relationship="NGTSLOB_dev2Model.FK_ABN3_EMP_ID" FromRole="TBL_ADDTL_BUSNS_NAME_ABN" ToRole="TBL_EMPR_EMP" />
+        </EntityType>
+        <Association Name="FK_ABN3_EMP_ID">
+          <End Type="NGTSLOB_dev2Model.TBL_EMPR_EMP" Role="TBL_EMPR_EMP" Multiplicity="1" />
+          <End Type="NGTSLOB_dev2Model.TBL_ADDTL_BUSNS_NAME_ABN" Role="TBL_ADDTL_BUSNS_NAME_ABN" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_EMPR_EMP">
+              <PropertyRef Name="EMP_ID" />
+            </Principal>
+            <Dependent Role="TBL_ADDTL_BUSNS_NAME_ABN">
+              <PropertyRef Name="EMP_ID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -714,6 +780,22 @@
                 <ScalarProperty Name="TRE_QTR" ColumnName="TRE_QTR" />
                 <ScalarProperty Name="REF_ID_TAX_RPT_METHD" ColumnName="REF_ID_TAX_RPT_METHD" />
                 <ScalarProperty Name="TRE_ID" ColumnName="TRE_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TBL_ADDTL_BUSNS_NAME_ABN">
+            <EntityTypeMapping TypeName="NGTSLOB_dev2Model.TBL_ADDTL_BUSNS_NAME_ABN">
+              <MappingFragment StoreEntitySet="TBL_ADDTL_BUSNS_NAME_ABN">
+                <ScalarProperty Name="BTA_ID" ColumnName="BTA_ID" />
+                <ScalarProperty Name="ABN_LAST_MODFD_DATE" ColumnName="ABN_LAST_MODFD_DATE" />
+                <ScalarProperty Name="USR_LAST_MODFD_BY" ColumnName="USR_LAST_MODFD_BY" />
+                <ScalarProperty Name="ABN_EXPIRTN_DATE" ColumnName="ABN_EXPIRTN_DATE" />
+                <ScalarProperty Name="ABN_EFCTV_DATE" ColumnName="ABN_EFCTV_DATE" />
+                <ScalarProperty Name="EMP_ID" ColumnName="EMP_ID" />
+                <ScalarProperty Name="REF_ID_ADDTL_BUSNS_NAME_STATUS" ColumnName="REF_ID_ADDTL_BUSNS_NAME_STATUS" />
+                <ScalarProperty Name="REF_ID_ADDTL_BUSNS_NAME_TYPE" ColumnName="REF_ID_ADDTL_BUSNS_NAME_TYPE" />
+                <ScalarProperty Name="ABN_ADDTL_BUSNS_NAME" ColumnName="ABN_ADDTL_BUSNS_NAME" />
+                <ScalarProperty Name="ABN_ID" ColumnName="ABN_ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

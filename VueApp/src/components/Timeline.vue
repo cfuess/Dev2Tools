@@ -2,7 +2,8 @@
 <div>
 
   <div class="d-flex justify-content-between">
-      <h4>{{name}} <span class="empId">(empId {{empId}})</span></h4>
+      <h3>{{legalName}}</h3>
+      <h4>{{businessName}} <span class="empId"> (empId  {{empId}})</span></h4>
       <div>
           EmpId or <b>ESD #</b> 
           <input type="text" v-model="num">
@@ -27,7 +28,34 @@ export default {
             num: this.getSearchNum(),
             esdNum: "",
             empId: "",
-            name: ""
+            legalName: "",
+            businessName: "",
+            test: {
+              "LegalName": "C1X, INC.",
+              "BusinessName": "C1X, INC.",
+              "EsdNum": "000730509005",
+              "EmpId": 10295112,
+              "LiabilityPeriods": [{
+                "StartDate": "2017-12-15T00:00:00",
+                "EndDate": "2018-03-16T14:32:53.6047333-07:00"
+              }],
+              "WagePeriods": [{
+                "Qtr": 3,
+                "Year": 2017,
+                "Gross": 0.00,
+                "StartDate": "2017-07-01T00:00:00",
+                "EndDate": "2017-09-30T00:00:00",
+                "IsNoPayroll": true
+              },
+              {
+                "Qtr": 4,
+                "Year": 2017,
+                "Gross": 12800.00,
+                "StartDate": "2017-10-01T00:00:00",
+                "EndDate": "2017-12-31T00:00:00",
+                "IsNoPayroll": false
+              }]
+            }
         };
     },
 
@@ -48,18 +76,20 @@ export default {
         doSearch: function (event) {
             let vm = this;
             vm.num = vm.num.replace(/\D/g, '');
-            axios.get(`http://localhost:61101/api/Ngts/${vm.num}`)
-                .then(function (response) {
-                    console.log(response);
-                    vm.loadChart(response.data)
-                })
-                .catch(function (error) {
-                    console.log(error);
-                });
+            // axios.get(`http://localhost:61101/api/Ngts/${vm.num}`)
+            //     .then(function (response) {
+            //         console.log(response.data);
+            //         vm.loadChart(response.data)
+            //     })
+            //     .catch(function (error) {
+            //         console.log(error);
+            //     });
+            vm.loadChart(vm.test);
         },
 
         loadChart: function (employer) {
-            this.name = employer.Name;
+            this.legalName = employer.LegalName;
+            this.businessName = employer.BusinessName;
             this.empId = employer.EmpId;
             this.esdNum = employer.EsdNum;
             this.num = employer.EsdNum;

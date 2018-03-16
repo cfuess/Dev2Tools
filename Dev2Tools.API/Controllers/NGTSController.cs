@@ -17,8 +17,10 @@ namespace Dev2Tools.API.Controllers
         {
             Employer employer = new Employer()
             {
+                EmpId = 0,
                 EsdNum = "None",
-                Name = "No Employer Found"
+                LegalName = "No Employer Found",
+                BusinessName = ""
             };
 
             if (string.IsNullOrWhiteSpace(id))
@@ -32,6 +34,7 @@ namespace Dev2Tools.API.Controllers
                 if (id.Length == 12)
                 {
                     emp = context.TBL_EMPR_EMP
+                        .Include("TBL_ADDTL_BUSNS_NAME_ABN")
                         .Include("TBL_EMPR_LIAB_PERIOD_ELP")
                         .Include("TBL_WAGE_RPT_WRE")
                         .FirstOrDefault(e => e.EMP_ESD_NBR == id);
@@ -40,6 +43,7 @@ namespace Dev2Tools.API.Controllers
                 {
                     var empId = long.Parse(id);
                     emp = context.TBL_EMPR_EMP
+                    .Include("TBL_ADDTL_BUSNS_NAME_ABN")
                     .Include("TBL_EMPR_LIAB_PERIOD_ELP")
                     .Include("TBL_WAGE_RPT_WRE")
                     .FirstOrDefault(e => e.EMP_ID == empId);
@@ -49,7 +53,8 @@ namespace Dev2Tools.API.Controllers
 
                 employer.EmpId = emp.EMP_ID;
                 employer.EsdNum = emp.EMP_ESD_NBR;
-                employer.Name = emp.EMP_LEGAL_ENTY_NAME;
+                employer.LegalName = emp.EMP_LEGAL_ENTY_NAME;
+                employer.BusinessName = emp.TBL_ADDTL_BUSNS_NAME_ABN.FirstOrDefault()?.ABN_ADDTL_BUSNS_NAME;
 
                 foreach (var liab in emp.TBL_EMPR_LIAB_PERIOD_ELP)
                 {

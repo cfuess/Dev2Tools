@@ -30,5 +30,6 @@ namespace Dev2Tools.API.Data
         public virtual DbSet<TBL_TAX_RATE_TRA> TBL_TAX_RATE_TRA { get; set; }
         public virtual DbSet<TBL_WAGE_RPT_WRE> TBL_WAGE_RPT_WRE { get; set; }
         public virtual DbSet<TBL_TAX_RPT_TRE> TBL_TAX_RPT_TRE { get; set; }
+        public virtual DbSet<TBL_ADDTL_BUSNS_NAME_ABN> TBL_ADDTL_BUSNS_NAME_ABN { get; set; }
     }
 }

@@ -212,6 +212,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Model.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Data\TBL_ADDTL_BUSNS_NAME_ABN.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="Data\TBL_EMPR_EMP.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
