@@ -1,21 +1,3 @@
-<template>
-<div>
-
-  <div class="d-flex justify-content-between">
-      <h4>{{name}} <span class="empId">(empId {{empId}})</span></h4>
-      <div>
-          EmpId or <b>ESD #</b> 
-          <input type="text" v-model="num">
-          <button v-on:click="doSearch">Search</button>
-      </div>
-  </div>
-
-  <div id="example5.1" style="height: 2000px;"></div>
-
-</div>
-</template>
-
-<script>
 import moment from "moment";
 import axios from "axios";
 import cookies from 'js-cookie';
@@ -76,8 +58,8 @@ export default {
                 var chart = new google.visualization.Timeline(container);
                 var dataTable = new google.visualization.DataTable();
 
-                dataTable.addColumn({ type: 'string', id: 'Item' });
-                dataTable.addColumn({ type: 'string', id: 'Label' });
+                dataTable.addColumn({ type: 'string', id: 'Room' });
+                dataTable.addColumn({ type: 'string', id: 'Value' });
                 dataTable.addColumn({ type: 'string', role: 'tooltip' });
                 dataTable.addColumn({ type: 'date', id: 'Start' });
                 dataTable.addColumn({ type: 'date', id: 'End' });
@@ -102,6 +84,7 @@ export default {
                 employer.WagePeriods.forEach((element, index, array) => {
                     var startDate1 = moment(element.StartDate);
                     var startDate2 = moment(element.EndDate);
+                    //debugger;
                     var mDate1 = startDate1.format("M/D/YY");
                     var mDate2 = startDate2.format("M/D/YY");
 
@@ -128,35 +111,36 @@ export default {
 
                 var options = {
                     //timeline: { colorByRowLabel: true },
-                    colors: barColors,
+                    //colors: barColors,
+                    colors: ['#cbb69d', '#333', '#603913'],
                     hAxis: {
                         format: 'M/d/yy'
                     }
                 };
 
 
-                // var dataTable2 = new google.visualization.DataTable();
-                // dataTable2.addColumn({ type: 'string', id: 'Role' });
-                // dataTable2.addColumn({ type: 'string', id: 'Name' });
-                // dataTable2.addColumn({ type: 'date', id: 'Start' });
-                // dataTable2.addColumn({ type: 'date', id: 'End' });
-                // dataTable2.addRows([
-                //     ['Washington', 'George Washington', new Date(1789, 3, 30), new Date(1797, 2, 4)],
-                //     ['Adams', 'John Adams', new Date(1797, 2, 4), new Date(1801, 2, 4)],
-                //     ['Jefferson', 'Thomas Jefferson', new Date(1801, 2, 4), new Date(1809, 2, 4)]]);
+                var dataTable2 = new google.visualization.DataTable();
+                dataTable2.addColumn({ type: 'string', id: 'Role' });
+                dataTable2.addColumn({ type: 'string', id: 'Name' });
+                dataTable2.addColumn({ type: 'date', id: 'Start' });
+                dataTable2.addColumn({ type: 'date', id: 'End' });
+                dataTable2.addRows([
+                    ['Washington', 'George Washington', new Date(1789, 3, 30), new Date(1797, 2, 4)],
+                    ['Adams', 'John Adams', new Date(1797, 2, 4), new Date(1801, 2, 4)],
+                    ['Jefferson', 'Thomas Jefferson', new Date(1801, 2, 4), new Date(1809, 2, 4)]]);
 
 
-                // var options2 = {
-                //     colors: ['#cbb69d', '#c62', '#603913'],
-                //     timeline: {
-                //         rowLabelStyle: { fontName: 'Helvetica', fontSize: 24, color: '#603913' },
-                //         barLabelStyle: { fontName: 'Garamond', fontSize: 14 }
-                //     }
-                // };
+                var options2 = {
+                    colors: ['#cbb69d', '#c62', '#603913'],
+                    timeline: {
+                        rowLabelStyle: { fontName: 'Helvetica', fontSize: 24, color: '#603913' },
+                        barLabelStyle: { fontName: 'Garamond', fontSize: 14 }
+                    }
+                };
 
-                //chart.draw(dataTable2, options2);
+                chart.draw(dataTable2, options2);
 
-                chart.draw(dataTable, options);
+                //chart.draw(dataTable, options);
             }
         }
 
@@ -167,27 +151,3 @@ export default {
     }
 
 };
-</script>
-
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
-h1,
-h2 {
-  font-weight: normal;
-}
-
-.title {
-  /*padding-bottom: 10px;*/
-  margin: 0px 0 10px 0;
-}
-
-.image {
-  width: 400px;
-  margin: 10px 0 10px 0;
-}
-
-.empId {
-  color: #888;
-  font-size: .5em;
-}
-</style>

@@ -5,6 +5,7 @@ using System.Linq;
 //using System.Net.Http;
 using System.Web.Http;
 using System.Web.Mvc;
+using Dev2Tools.API.Data;
 using Dev2Tools.API.Models;
 
 namespace Dev2Tools.API.Controllers
@@ -20,16 +21,34 @@ namespace Dev2Tools.API.Controllers
                 Name = "No Employer Found"
             };
 
+            if (string.IsNullOrWhiteSpace(id))
+            {
+                return employer;
+            }
+
             using (var context = new Data.NGTSLOB_dev2Entities())
             {
-                var emp = context.TBL_EMPR_EMP
+                TBL_EMPR_EMP emp;
+                if (id.Length == 12)
+                {
+                    emp = context.TBL_EMPR_EMP
+                        .Include("TBL_EMPR_LIAB_PERIOD_ELP")
+                        .Include("TBL_WAGE_RPT_WRE")
+                        .FirstOrDefault(e => e.EMP_ESD_NBR == id);
+                }
+                else
+                {
+                    var empId = long.Parse(id);
+                    emp = context.TBL_EMPR_EMP
                     .Include("TBL_EMPR_LIAB_PERIOD_ELP")
                     .Include("TBL_WAGE_RPT_WRE")
-                    .FirstOrDefault(e => e.EMP_ESD_NBR == id);
+                    .FirstOrDefault(e => e.EMP_ID == empId);
+                }
 
                 if (emp == null) return employer;
 
                 employer.EmpId = emp.EMP_ID;
+                employer.EsdNum = emp.EMP_ESD_NBR;
                 employer.Name = emp.EMP_LEGAL_ENTY_NAME;
 
                 foreach (var liab in emp.TBL_EMPR_LIAB_PERIOD_ELP)
