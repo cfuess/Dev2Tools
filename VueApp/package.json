@@ -17,6 +17,7 @@
     "moment": "^2.21.0",
     "popper": "^1.0.1",
     "vue": "^2.5.11",
+    "vue-charts": "^0.2.1",
     "vue-router": "^3.0.1"
   },
   "browserslist": [

@@ -11,7 +11,15 @@
       </div>
   </div>
 
-  <div id="example5.1" style="height: 2000px;"></div>
+  <!-- <div id="example5.1" style="height: 2000px;"></div> -->
+
+<!-- Props can be literal, or dynamic (like they are here) -->
+<vue-chart
+    :chart-type="chartType"
+    :columns="gcolumns"
+    :rows="grows"
+    :options="options"
+></vue-chart>
 
 </div>
 </template>
@@ -25,6 +33,10 @@ export default {
     name: "Timeline",
     data: function () {
         return {
+            chartType: "Timeline",
+            gcolumns: new Array(),
+            grows: new Array(),
+            options: {},
             num: this.getSearchNum(),
             esdNum: "",
             empId: "",
@@ -62,8 +74,8 @@ export default {
             //     .catch(function (error) {
             //         console.log(error);
             //     });
-            //vm.loadChart(vm.C2X);
-            vm.loadChart(vm.rainman);
+            vm.loadChart(vm.C2X);
+            //vm.loadChart(vm.rainman);
             //vm.loadChart(vm.pinker);
             //vm.loadChart(vm.HELLO);
         },
@@ -75,23 +87,33 @@ export default {
             this.esdNum = employer.EsdNum;
             this.num = employer.EsdNum;
             cookies.set('esdNum', employer.EsdNum)
+            
 
+            // google.charts.load("current", { packages: ["timeline"] });
+            // google.charts.setOnLoadCallback(drawChart);
+          this.drawChart(employer);
 
-            google.charts.load("current", { packages: ["timeline"] });
-            google.charts.setOnLoadCallback(drawChart);
-
-            function drawChart() {
+},
+  
+             drawChart: function(employer) {
+                var vm = this;
                 var barColors = [];
 
                 var container = document.getElementById('example5.1');
-                var chart = new google.visualization.Timeline(container);
-                var dataTable = new google.visualization.DataTable();
+                // var chart = new google.visualization.Timeline(container);
+                // var dataTable = new google.visualization.DataTable();
 
-                dataTable.addColumn({ type: 'string', id: 'Item' });
-                dataTable.addColumn({ type: 'string', id: 'Label' });
-                dataTable.addColumn({ type: 'string', role: 'tooltip' });
-                dataTable.addColumn({ type: 'date', id: 'Start' });
-                dataTable.addColumn({ type: 'date', id: 'End' });
+                // dataTable.addColumn({ type: 'string', id: 'Item' });
+                // dataTable.addColumn({ type: 'string', id: 'Label' });
+                // dataTable.addColumn({ type: 'string', role: 'tooltip' });
+                // dataTable.addColumn({ type: 'date', id: 'Start' });
+                // dataTable.addColumn({ type: 'date', id: 'End' });
+
+                vm.gcolumns.push({ type: 'string', id: 'Item' })
+                vm.gcolumns.push({ type: 'string', id: 'Label' })
+                // vm.gcolumns.push({ type: 'string', id: 'tooltip' })
+                vm.gcolumns.push({ type: 'date', id: 'Start' })
+                vm.gcolumns.push({ type: 'date', id: 'End' })
 
                 employer.LiabilityPeriods.forEach((element, index, array) => {
                     var startDate1 = moment(element.StartDate);
@@ -107,7 +129,9 @@ export default {
 
                     barColors.push('#0288d1');
 
-                    dataTable.addRow(['Active', barLabel, tooltip, startDate1.toDate(), startDate2.toDate()]);
+                    // dataTable.addRow(['Active', barLabel, tooltip, startDate1.toDate(), startDate2.toDate()]);
+                    
+                    vm.grows.push(['Active', barLabel, startDate1.toDate(), startDate2.toDate()]);
                 });
 
                 employer.WagePeriods.forEach((element, index, array) => {
@@ -134,7 +158,8 @@ export default {
                     else {
                         barColors.push('#c53929');
                     }
-                    dataTable.addRow(['Wages', '', tooltip, startDate1.toDate(), startDate2.toDate()]);
+                    // dataTable.addRow(['Wages', '', tooltip, startDate1.toDate(), startDate2.toDate()]);
+                    vm.grows.push(['Wages', '', startDate1.toDate(), startDate2.toDate()]);
                 });
 
                 var options = {
@@ -144,6 +169,8 @@ export default {
                         format: 'M/d/yy'
                     }
                 };
+
+                vm.options = options;
 
 
                 // var dataTable2 = new google.visualization.DataTable();
@@ -169,7 +196,6 @@ export default {
 
                 chart.draw(dataTable, options);
             }
-        }
 
     },
 
