@@ -93,7 +93,7 @@ export default {
 
                 var periods = [];
                 employer.LiabilityPeriods.forEach((element, index, array) => {
-                    var color = '#006666';
+                    var color = '#134466';
                     var startDate1 = moment(element.StartDate);
                     var startDate2 = moment(element.EndDate);
 
