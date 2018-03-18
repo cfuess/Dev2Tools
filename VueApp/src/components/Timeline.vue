@@ -20,7 +20,7 @@
 import moment from "moment";
 import axios from "axios";
 import cookies from 'js-cookie';
-
+//import google from '../assets/gcharts'  // doesn't work
 export default {
     name: "Timeline",
     data: function () {
@@ -62,8 +62,8 @@ export default {
             //     .catch(function (error) {
             //         console.log(error);
             //     });
-            //vm.loadChart(vm.C2X);
-            vm.loadChart(vm.rainman);
+            vm.loadChart(vm.C2X);
+            //vm.loadChart(vm.rainman);
             //vm.loadChart(vm.pinker);
             //vm.loadChart(vm.HELLO);
         },
@@ -75,7 +75,6 @@ export default {
             this.esdNum = employer.EsdNum;
             this.num = employer.EsdNum;
             cookies.set('esdNum', employer.EsdNum)
-
 
             google.charts.load("current", { packages: ["timeline"] });
             google.charts.setOnLoadCallback(drawChart);
@@ -106,8 +105,9 @@ export default {
                     var tooltip = dRound + ' years ' + ' - Active:' + barLabel;
 
                     barColors.push('#0288d1');
-
-                    dataTable.addRow(['Active', barLabel, tooltip, startDate1.toDate(), startDate2.toDate()]);
+                    var row = ['Active', barLabel, tooltip, startDate1.toDate(), startDate2.toDate()];
+                    console.log(row + ",")
+                    dataTable.addRow(row);
                 });
 
                 employer.WagePeriods.forEach((element, index, array) => {
@@ -134,7 +134,9 @@ export default {
                     else {
                         barColors.push('#c53929');
                     }
-                    dataTable.addRow(['Wages', '', tooltip, startDate1.toDate(), startDate2.toDate()]);
+                    var row = ['Wages', '', tooltip, startDate1.toDate(), startDate2.toDate()];
+                    console.log(row + ",")
+                    dataTable.addRow(row);
                 });
 
                 var options = {
@@ -145,36 +147,47 @@ export default {
                     }
                 };
 
+                var dataTable2 = new google.visualization.DataTable();
+                dataTable2.addColumn({ type: 'string', id: 'Role' });
+                dataTable2.addColumn({ type: 'string', id: 'Name' });
+                dataTable2.addColumn({ type: 'date', id: 'Start' });
+                dataTable2.addColumn({ type: 'date', id: 'End' });
+                dataTable2.addRows([
+                    ['President', 'George Washington', new Date(2008, 3, 30), new Date(2009, 2, 4)],
+                    ['President', 'John Adams', new Date(2009, 2, 4), new Date(2010, 2, 4)],
+                    ['President', 'Thomas Jefferson', new Date(2011, 2, 4), new Date(2012, 2, 4)],
+                    [ "Wages", "Q4 2012 $33,402.10", new Date('2012-10-01T07:00:00.000Z'), new Date('2012-12-31T08:00:00.000Z')],
+                    [ "Wages", "No Payroll - Q3 2017 $0.00", moment('2012-10-01T07:00:00.000Z').toDate(), moment('2012-12-31T08:00:00.000Z').toDate()],
+                    [ "Wages", "12/15/17 - 3/16/18", moment('Fri Dec 15 2017 00:00:00 GMT-0800 (Pacific Standard Time)').toDate(), moment('Fri Mar 16 2018 15:58:41 GMT-0700 (Pacific Daylight Time)').toDate()],
+                    [ "Wages", "12/15/17 - 3/16/18", moment('Fri Dec 15 2018 00:00:00 GMT-0800 (Pacific Standard Time)').toDate(), moment('Fri Mar 16 2019 15:58:41 GMT-0700 (Pacific Daylight Time)').toDate()],
+                    [ "Wages", "No Payroll - Q3 2017 $0.00", moment('2018-10-01T07:00:00.000Z').toDate(), moment('2018-12-31T08:00:00.000Z').toDate()]
+                    ]);
 
-                // var dataTable2 = new google.visualization.DataTable();
-                // dataTable2.addColumn({ type: 'string', id: 'Role' });
-                // dataTable2.addColumn({ type: 'string', id: 'Name' });
-                // dataTable2.addColumn({ type: 'date', id: 'Start' });
-                // dataTable2.addColumn({ type: 'date', id: 'End' });
-                // dataTable2.addRows([
-                //     ['Washington', 'George Washington', new Date(1789, 3, 30), new Date(1797, 2, 4)],
-                //     ['Adams', 'John Adams', new Date(1797, 2, 4), new Date(1801, 2, 4)],
-                //     ['Jefferson', 'Thomas Jefferson', new Date(1801, 2, 4), new Date(1809, 2, 4)]]);
 
+                var options2 = {
+                    //colors: ['#cbb69d', '#c62', '#603913', '#ff69b4', '#777', '#00F'],
+                    colors: barColors,
+                    timeline: {
+                        rowLabelStyle: { fontName: 'Helvetica', fontSize: 24, color: '#603913' },
+                        barLabelStyle: { fontName: 'Garamond', fontSize: 14 }
+                    }
+                };
 
-                // var options2 = {
-                //     colors: ['#cbb69d', '#c62', '#603913'],
-                //     timeline: {
-                //         rowLabelStyle: { fontName: 'Helvetica', fontSize: 24, color: '#603913' },
-                //         barLabelStyle: { fontName: 'Garamond', fontSize: 14 }
-                //     }
-                // };
+                chart.draw(dataTable2, options2);
 
-                //chart.draw(dataTable2, options2);
-
-                chart.draw(dataTable, options);
+                //chart.draw(dataTable, options);
             }
         }
 
     },
 
     mounted() {
-        this.doSearch();
+      if (document.getElementById('my-chart')) return; // was already loaded
+      var scriptTag = document.createElement("script");
+      scriptTag.src = "https://www.gstatic.com/charts/loader.js";
+      scriptTag.id = "my-chart";
+      document.getElementsByTagName('head')[0].appendChild(scriptTag);
+      // this.doSearch();
     }
 
 };
