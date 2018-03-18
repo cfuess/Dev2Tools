@@ -93,7 +93,7 @@ export default {
 
                 var periods = [];
                 employer.LiabilityPeriods.forEach((element, index, array) => {
-                    var color = '#0288d1';
+                    var color = '#006666';
                     var startDate1 = moment(element.StartDate);
                     var startDate2 = moment(element.EndDate);
 
@@ -130,11 +130,11 @@ export default {
 
                     if (element.IsNoPayroll) {
                         tooltip = 'No Payroll - ' + tooltip;
-                         color = '#bdbdbd';
+                         color = '#808080';
                         // console.log(`${mDate1} : ${element.IsNoPayroll}`)
                     }
                     else {
-                        color = '#c53929';
+                        color = '#955659';
                     }
                     // qrYr must be unique to allow independent background colors  
                     wages.push(['Wages', qrYr, tooltip, startDate1.toDate(), startDate2.toDate()]);
@@ -148,7 +148,7 @@ export default {
                     hAxis: { format: 'M/d/yy' },
                     timeline: {
                         rowLabelStyle: { fontName: 'Helvetica', fontSize: 24, color: '#603913' },
-                        barLabelStyle: { fontName: 'Garamond', fontSize: 14 }
+                        barLabelStyle: { fontName: 'Garamond', fontSize: 16 }
                     }
                 };
 
