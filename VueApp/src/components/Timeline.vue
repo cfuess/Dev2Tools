@@ -3,7 +3,7 @@
 
   <div class="d-flex justify-content-between">
       <h3>{{legalName}}</h3>
-      <h4>{{businessName}} <span class="empId"> (empId  {{empId}})</span></h4>
+      <h4> <span v-if="!sameName">{{businessName}}</span> <span class="empId"> (empId  {{empId}})</span></h4>
       <div>
           EmpId or <b>ESD #</b> 
           <input type="text" v-model="num">
@@ -33,7 +33,11 @@ export default {
             fakeData: this.getFakeData()
         };
     },
-
+    computed: {
+        sameName () {
+            return this.legalName.toLowerCase() == this.businessName.toLowerCase();
+        }
+    },
     methods: {
 
         getSearchNum() {
@@ -51,15 +55,15 @@ export default {
         doSearch: function (event) {
             let vm = this;
             vm.num = vm.num.replace(/\D/g, '');
-            // axios.get(`http://localhost:61101/api/Ngts/${vm.num}`)
-            //     .then(function (response) {
-            //         console.log(response.data);
-            //         vm.loadChart(response.data)
-            //     })
-            //     .catch(function (error) {
-            //         console.log(error);
-            //     });
-            vm.loadChart(vm.fakeData[Math.floor(Math.random()*vm.fakeData.length)]);
+            axios.get(`http://localhost:61101/api/Ngts/${vm.num}`)
+                .then(function (response) {
+                    console.log(response.data);
+                    vm.loadChart(response.data)
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
+            //vm.loadChart(vm.fakeData[Math.floor(Math.random()*vm.fakeData.length)]);
         },
 
         loadChart: function (employer) {
@@ -79,8 +83,6 @@ export default {
             }
 
             function drawChart() {
-                var barColors = [];
-
                 var container = document.getElementById('example5.1');
                 var chart = new google.visualization.Timeline(container);
                 var dataTable = new google.visualization.DataTable();
@@ -88,6 +90,7 @@ export default {
                 dataTable.addColumn({ type: 'string', id: 'Item' });
                 dataTable.addColumn({ type: 'string', id: 'Label' });
                 dataTable.addColumn({ type: 'string', role: 'tooltip' });
+                dataTable.addColumn({ type: 'string', role: 'style' });
                 dataTable.addColumn({ type: 'date', id: 'Start' });
                 dataTable.addColumn({ type: 'date', id: 'End' });
 
@@ -105,12 +108,12 @@ export default {
                     var dRound = Math.round(d * 100) / 100
                     var tooltip = dRound + ' years ' + ' - Active:' + barLabel;
 
-                    periods.push(['Active', barLabel, tooltip, startDate1.toDate(), startDate2.toDate()]);
-                    barColors.push(color);
+                    periods.push(['Active', barLabel, tooltip, color, startDate1.toDate(), startDate2.toDate()]);
                 });
                 dataTable.addRows(periods);
 
                 var wages = [];
+                var qrYrs = [];
                 employer.WagePeriods.forEach((element, index, array) => {
                     var color = '';
                     var startDate1 = moment(element.StartDate);
@@ -126,25 +129,26 @@ export default {
                     });
 
                     var qrYr = 'Q' + startDate1.quarter().toString() + ' ' + moment(element.StartDate).format("YYYY");
+                    if (qrYrs.includes(qrYr)) {
+                        qrYr = qrYr + ' ';
+                    }
+                    qrYrs.push(qrYr);
                     var tooltip = qrYr + ' ' + nf.format(element.Gross);
 
                     if (element.IsNoPayroll) {
                         tooltip = 'No Payroll - ' + tooltip;
-                         color = '#808080';
+                        color = '#808080';
                         // console.log(`${mDate1} : ${element.IsNoPayroll}`)
                     }
                     else {
                         color = '#955659';
                     }
-                    // qrYr must be unique to allow independent background colors  
-                    wages.push(['Wages', qrYr, tooltip, startDate1.toDate(), startDate2.toDate()]);
                     // color = getRandColor();
-                    barColors.push(color);
+                    wages.push(['Wages', qrYr, tooltip, color, startDate1.toDate(), startDate2.toDate()]);
                 });
                 dataTable.addRows(wages);
 
                 var options = {
-                    colors: barColors,
                     hAxis: { format: 'M/d/yy' },
                     timeline: {
                         rowLabelStyle: { fontName: 'Helvetica', fontSize: 24, color: '#603913' },
