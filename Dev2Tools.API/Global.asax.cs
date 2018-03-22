@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Http;
@@ -18,6 +20,13 @@ namespace Dev2Tools.API
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+
+            if (Debugger.IsAttached)
+            {
+                string apipath = System.AppDomain.CurrentDomain.BaseDirectory;
+                string batpath = apipath + "runVue.bat";
+                Process.Start(batpath, apipath);
+            }
         }
     }
 }
