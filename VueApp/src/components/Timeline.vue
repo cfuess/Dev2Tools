@@ -176,7 +176,7 @@ export default {
       scriptTag.src = "https://www.gstatic.com/charts/loader.js";
       scriptTag.id = "my-chart";
       document.getElementsByTagName('head')[0].appendChild(scriptTag);
-    //   this.doSearch();
+      this.doSearch();
     }
 
 };
