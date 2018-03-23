@@ -4,9 +4,9 @@
   <div class="d-flex justify-content-between">
       <h3>{{legalName}}</h3>
       <h4> <span v-if="!sameName">{{businessName}}</span> <span class="empId"> (empId  {{empId}})</span></h4>
-      <div>
+      <div class="d-flex justify-content-between" style="width: 700px;">
           EmpId or <b>ESD #</b> 
-          <input type="text" v-model="num">
+          <v-select taggable v-model="selected" :options="history"></v-select>
           <button v-on:click="doSearch">Search</button>
       </div>
   </div>
@@ -25,12 +25,13 @@ export default {
     name: "Timeline",
     data: function () {
         return {
-            num: this.getSearchNum(),
+            selected: "",
             esdNum: "",
             empId: "",
             legalName: "",
             businessName: "",
-            fakeData: this.getFakeData()
+            fakeData: this.getFakeData(),
+            history: []
         };
     },
     computed: {
@@ -54,16 +55,45 @@ export default {
 
         doSearch: function (event) {
             let vm = this;
-            vm.num = vm.num.replace(/\D/g, '');
-            axios.get(`http://localhost:61101/api/Ngts/${vm.num}`)
-                .then(function (response) {
-                    console.log(response.data);
-                    vm.loadChart(response.data)
-                })
-                .catch(function (error) {
-                    console.log(error);
-                });
+            vm.selected = vm.selected.replace(/\D/g, '');
+            // axios.get(`http://localhost:61101/api/Ngts/${vm.selected}`)
+            //     .then(function (response) {
+            //         console.log(response.data);
+            //         vm.loadChart(response.data)
+            //     })
+            //     .catch(function (error) {
+            //         console.log(error);
+            //     });
             //vm.loadChart(vm.fakeData[Math.floor(Math.random()*vm.fakeData.length)]);
+            let item = vm.fakeData.filter(function( obj ) { return obj.EsdNum == vm.selected; })[0];
+            vm.saveCookieHistory();
+            vm.loadChart(item);
+        },
+
+        saveCookieHistory: function () {
+            let vm = this;
+            if (vm.history != undefined){
+                vm.history = vm.history.filter(function(a){return (a !== vm.selected && a !== "" && a !== "enter esd #" ) })
+                vm.history.unshift(vm.selected);
+            }
+            else {
+                vm.history= [vm.selected]
+            }
+            cookies.set('history', vm.history)
+        },
+
+        getCookieHistory: function () {
+            // return ["111730509005", "112001204002", "113704299000", "114703347009"];
+            let vm = this;
+            let storedHistory = cookies.getJSON('history');
+            if (storedHistory != undefined 
+                && (storedHistory.length > 0) 
+                && (storedHistory.length != 1 && storedHistory[0] != "")) {
+                vm.history = storedHistory
+            }
+            else {
+                vm.history =  ["enter esd #"]
+            }
         },
 
         loadChart: function (employer) {
@@ -71,7 +101,7 @@ export default {
             this.businessName = employer.BusinessName;
             this.empId = employer.EmpId;
             this.esdNum = employer.EsdNum;
-            this.num = employer.EsdNum;
+            this.selected = employer.EsdNum;
             cookies.set('esdNum', employer.EsdNum)
 
             google.charts.load("current", { packages: ["timeline"] });
@@ -170,14 +200,18 @@ export default {
         }
     },
 
-    mounted() {
-      if (document.getElementById('my-chart')) return; // was already loaded
-      var scriptTag = document.createElement("script");
-      scriptTag.src = "https://www.gstatic.com/charts/loader.js";
-      scriptTag.id = "my-chart";
-      document.getElementsByTagName('head')[0].appendChild(scriptTag);
-      this.doSearch();
-    }
+    created() {
+      this.getCookieHistory();
+    },
+
+    // mounted() {
+    //   if (document.getElementById('my-chart')) return; // was already loaded
+    //   var scriptTag = document.createElement("script");
+    //   scriptTag.src = "https://www.gstatic.com/charts/loader.js";
+    //   scriptTag.id = "my-chart";
+    //   document.getElementsByTagName('head')[0].appendChild(scriptTag);
+    //   this.doSearch();
+    // }
 
 };
 </script>
@@ -202,5 +236,9 @@ h2 {
 .empId {
   color: #888;
   font-size: .5em;
+}
+
+#searchbox {
+    width: 50px;
 }
 </style>
